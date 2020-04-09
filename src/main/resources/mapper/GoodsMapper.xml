@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhuffei.ffei.mapper.GoodsMapper">
+
+    <resultMap id="goodsMap" type="com.zhuffei.ffei.entity.Goods">
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="uid" property="uId" jdbcType="INTEGER" />
+        <result column="F_CNAME" property="fcName" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="goods_describe" property="describe" jdbcType="VARCHAR" />
+        <result column="price" property="price" jdbcType="DECIMAL" />
+        <result column="type" property="type" jdbcType="INTEGER" />
+        <result column="state" property="state" jdbcType="INTEGER" />
+        <result column="location" property="location" jdbcType="VARCHAR" />
+        <result column="img1" property="img1" jdbcType="VARCHAR" />
+        <result column="img2" property="img2" jdbcType="VARCHAR" />
+        <result column="img3" property="img3" jdbcType="VARCHAR" />
+        <result column="img4" property="img4" jdbcType="VARCHAR" />
+        <result column="img5" property="img5" jdbcType="VARCHAR" />
+        <result column="browse" property="browse" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <select id="listRecentGoods" resultMap="goodsMap">
+        select id,uid,name,goods_describe,price,type,state,location,img1,img2,img3,img4,img5 ,browse,create_time
+        from goods order by create_time desc limit #{pageNumber},#{pageSize}
+    </select>
+</mapper>
