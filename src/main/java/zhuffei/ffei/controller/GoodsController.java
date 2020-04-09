@@ -21,8 +21,8 @@ import java.util.Map;
 @RequestMapping("goods")
 public class GoodsController {
 
-//    @Autowired
-//    private IGoodsService goodsService;
+    @Autowired
+    private IGoodsService goodsService;
 
     /**
      * 分页查询商品，按时间排序
@@ -37,8 +37,8 @@ public class GoodsController {
 
         Integer pageSize = 1;
         Integer pageNumber = 1;
-//        List<Goods> data = goodsService.listRecentGoods(pageSize,pageNumber);
-//        System.out.println(data);
+        List<Goods> data = goodsService.listRecentGoods(pageSize,pageNumber);
+        System.out.println(data);
         return  Return.ok("","ddddd");
     }
 }

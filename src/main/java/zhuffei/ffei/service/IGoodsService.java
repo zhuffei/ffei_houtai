@@ -11,5 +11,5 @@ import java.util.List;
  * @date 2020/4/9 15:16
  */
 public interface IGoodsService extends IService<Goods> {
-//    List<Goods> listRecentGoods( int pageSize,int pageNumber);
+    List<Goods> listRecentGoods( int pageSize,int pageNumber);
 }

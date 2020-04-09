@@ -14,5 +14,5 @@ import java.util.List;
  */
 @Mapper
 public interface GoodsMapper extends BaseMapper<Goods> {
-//    List<Goods> listRecentGoods(@Param("pageSize") int pageSize, @Param("pageNumber") int pageNumber);
+    List<Goods> listRecentGoods(@Param("pageSize") int pageSize, @Param("pageNumber") int pageNumber);
 }
