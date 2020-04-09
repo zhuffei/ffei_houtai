@@ -39,6 +39,6 @@ public class GoodsController {
         Integer pageNumber = 1;
         List<Goods> data = goodsService.listRecentGoods(pageSize,pageNumber);
         System.out.println(data);
-        return  Return.ok("","ddddd");
+        return  Return.ok("",data);
     }
 }

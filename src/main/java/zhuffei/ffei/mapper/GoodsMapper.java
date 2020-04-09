@@ -12,7 +12,7 @@ import java.util.List;
  * @version 1.0
  * @date 2020/4/9 15:12
  */
-@Mapper
+//@Mapper
 public interface GoodsMapper extends BaseMapper<Goods> {
     List<Goods> listRecentGoods(@Param("pageSize") int pageSize, @Param("pageNumber") int pageNumber);
 }
