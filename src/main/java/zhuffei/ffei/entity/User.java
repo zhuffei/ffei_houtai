@@ -26,8 +26,8 @@ public class User {
     @TableField("pwd")
     private String pwd;
 
-    @TableField("role")
-    private int role;
+//    @TableField("role")
+//    private int role;
 
     @TableField("state")
     private int state;
