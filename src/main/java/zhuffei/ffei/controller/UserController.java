@@ -56,8 +56,8 @@ public class UserController {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("phone", phone);
         User user = userService.getOne(queryWrapper);
-        System.out.println(user.getPwd());
-        if(user.getPwd().equals(password) ){
+        if(null != user&&user.getPwd().equals(password) ){
+            System.out.println("用户【"+user.getName()+"】登陆成功");
             return Return.ok("登陆成功",user);
         }else{
             return Return.error("用户名或密码错误");
