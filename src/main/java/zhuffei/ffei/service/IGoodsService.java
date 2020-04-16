@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import zhuffei.ffei.entity.Goods;
 
 import java.util.List;
+import zhuffei.ffei.entity.GoodsUserOV;
 
 /**
  * @author zhuffei
@@ -11,5 +12,8 @@ import java.util.List;
  * @date 2020/4/9 15:16
  */
 public interface IGoodsService extends IService<Goods> {
-    List<Goods> listRecentGoods( int pageSize,int pageNumber);
+    List<GoodsUserOV> listRecentGoods( int pageSize,int pageNumber);
+    List<GoodsUserOV> getBanner();
+
+    List<GoodsUserOV> getRollText();
 }

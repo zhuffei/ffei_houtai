@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
@@ -14,11 +15,13 @@ import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import zhuffei.ffei.Tool.Return;
 import zhuffei.ffei.entity.Goods;
+import zhuffei.ffei.entity.GoodsUserOV;
 import zhuffei.ffei.service.IGoodsService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,19 +43,18 @@ public class GoodsController {
   /**
    * 分页查询商品，按时间排序
    *
-   * @param request
    * @return
    */
   @ResponseBody
   @RequestMapping("listRecentGoods")
-  public Map listRecentGoods(HttpServletRequest request) {     //必须传入每页的条数和页数
-//        Integer pageSize = Integer.valueOf(request.getParameter("pageSize"));
-//        Integer pageNumber = Integer.valueOf(request.getParameter("pageNumber"));
-
-    Integer pageSize = 1;
-    Integer pageNumber = 1;
-    List<Goods> data = goodsService.listRecentGoods(pageSize, pageNumber);
-    System.out.println(data);
+  public Map listRecentGoods(@RequestBody Map<String,String> map) {     //必须传入每页的条数和页数
+    Integer pageSize = Integer.valueOf( map.get("pageSize"));
+    Integer pageNumber = Integer.valueOf( map.get("pageNumber"));
+    if(null == pageSize||null == pageNumber){
+      System.out.println("网络异常");
+      return Return.error("网络异常");
+    }
+    List<GoodsUserOV> data = goodsService.listRecentGoods(pageSize, pageNumber);
     return Return.ok("", data);
   }
 
@@ -148,4 +150,21 @@ public class GoodsController {
     }
 
   }
+  @ResponseBody
+  @RequestMapping("getBanner")
+  public Map getBanner(){
+    return Return.ok(goodsService.getBanner());
+  }
+  @ResponseBody
+  @RequestMapping("getRollText")
+  public Map getRollText(){
+    List<GoodsUserOV> list = goodsService.getRollText();
+    Map<String,Integer> map = new HashMap<>();
+    for(GoodsUserOV g:list){
+      map.put("【求购】"+g.getName(),g.getId());
+    }
+     return  Return.ok(map);
+  }
+
+
 }
