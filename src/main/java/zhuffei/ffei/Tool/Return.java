@@ -21,10 +21,10 @@ public class Return {
         map.put("state",true);
         return map;
     }
-    public static Map ok(String msg) {
+    public static Map ok(Object object) {
         Map map = new HashMap();
         map.put("state",true);
-        map.put("msg",msg);
+        map.put("data",object);
         return map;
     }
     public static Map error(){
@@ -32,10 +32,10 @@ public class Return {
         map.put("msg",false);
         return map;
     }
-    public static Map error(Object object){
+    public static Map error(String msg){
         Map map = new HashMap();
         map.put("state",false);
-        map.put("msg",object);
+        map.put("msg",msg);
         return map;
     }
 

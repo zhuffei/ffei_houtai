@@ -59,9 +59,13 @@ public class Goods {
     @TableField("img5")
     private String img5;
 
+    @TableField("img6")
+    private String img6;
+
     @TableField("browse")
     private Integer browse;
 
     @TableField("create_time")
     private Timestamp createTime;
+
 }

@@ -1,9 +1,9 @@
 package zhuffei.ffei.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import zhuffei.ffei.entity.Goods;
+import zhuffei.ffei.entity.GoodsUserOV;
 import zhuffei.ffei.mapper.GoodsMapper;
 import zhuffei.ffei.service.IGoodsService;
 
@@ -17,9 +17,17 @@ import java.util.List;
 @Service("goodsService")
 public class GoodsServiceImpl extends ServiceImpl<GoodsMapper,Goods> implements IGoodsService {
 
-    @Autowired
-    GoodsMapper baseMapper;
-    public List<Goods> listRecentGoods(int pageSize, int pageNumber){
+    public List<GoodsUserOV> listRecentGoods(int pageSize, int pageNumber){
         return baseMapper.listRecentGoods(pageSize,pageNumber);
+    }
+
+    @Override
+    public List<GoodsUserOV> getBanner() {
+        return baseMapper.getBanner();
+    }
+
+    @Override
+    public List<GoodsUserOV> getRollText() {
+        return baseMapper.getRollText();
     }
 }

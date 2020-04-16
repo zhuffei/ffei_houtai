@@ -2,26 +2,37 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="zhuffei.ffei.mapper.GoodsMapper">
 
-    <resultMap id="goodsMap" type="zhuffei.ffei.entity.Goods">
-        <id column="id" property="id" jdbcType="INTEGER" />
-        <result column="uid" property="uId" jdbcType="INTEGER" />
-        <result column="F_CNAME" property="fcName" jdbcType="VARCHAR" />
-        <result column="name" property="name" jdbcType="VARCHAR" />
-        <result column="goods_describe" property="describe" jdbcType="VARCHAR" />
-        <result column="price" property="price" jdbcType="DECIMAL" />
-        <result column="type" property="type" jdbcType="INTEGER" />
-        <result column="state" property="state" jdbcType="INTEGER" />
-        <result column="location" property="location" jdbcType="VARCHAR" />
-        <result column="img1" property="img1" jdbcType="VARCHAR" />
-        <result column="img2" property="img2" jdbcType="VARCHAR" />
-        <result column="img3" property="img3" jdbcType="VARCHAR" />
-        <result column="img4" property="img4" jdbcType="VARCHAR" />
-        <result column="img5" property="img5" jdbcType="VARCHAR" />
-        <result column="browse" property="browse" jdbcType="VARCHAR" />
-        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    </resultMap>
-    <select id="listRecentGoods" resultMap="goodsMap">
-        select id,uid,name,goods_describe,price,type,state,location,img1,img2,img3,img4,img5 ,browse,create_time
-        from goods order by create_time desc limit ${(pageNumber-1)*pageSize},#{pageSize}
+  <!--    <resultMap id="goodsMap" type="zhuffei.ffei.entity.Goods">-->
+  <!--        <id column="id" property="id" jdbcType="INTEGER" />-->
+  <!--        <result column="uid" property="uId" jdbcType="INTEGER" />-->
+  <!--        <result column="F_CNAME" property="fcName" jdbcType="VARCHAR" />-->
+  <!--        <result column="name" property="name" jdbcType="VARCHAR" />-->
+  <!--        <result column="goods_describe" property="describe" jdbcType="VARCHAR" />-->
+  <!--        <result column="price" property="price" jdbcType="DECIMAL" />-->
+  <!--        <result column="type" property="type" jdbcType="INTEGER" />-->
+  <!--        <result column="state" property="state" jdbcType="INTEGER" />-->
+  <!--        <result column="location" property="location" jdbcType="VARCHAR" />-->
+  <!--        <result column="img1" property="img1" jdbcType="VARCHAR" />-->
+  <!--        <result column="img2" property="img2" jdbcType="VARCHAR" />-->
+  <!--        <result column="img3" property="img3" jdbcType="VARCHAR" />-->
+  <!--        <result column="img4" property="img4" jdbcType="VARCHAR" />-->
+  <!--        <result column="img5" property="img5" jdbcType="VARCHAR" />-->
+  <!--        <result column="browse" property="browse" jdbcType="VARCHAR" />-->
+  <!--        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />-->
+  <!--    </resultMap>-->
+
+  <select id="listRecentGoods" resultType="zhuffei.ffei.entity.GoodsUserOV">
+        select goods.id,goods.uid,goods.name,goods.goods_describe,goods.price,goods.type,goods.state,
+        goods.location,goods.img1,goods.img2,goods.img3,goods.img4,goods.img5,goods.img6 ,
+        goods.browse,goods.create_time createTime,goods.update_time updateTime,
+        user.avator,user.name userName
+        from goods goods left join user on goods.uid = user.id order by goods.create_time desc limit ${(pageNumber-1)*pageSize},#{pageSize}
     </select>
+
+  <select id="getBanner" resultType="zhuffei.ffei.entity.GoodsUserOV">
+        select  goods.id ,goods.name,goods.img1 from goods join banner on goods.id = banner.gid where banner.start_time &lt; CURRENT_TIME and banner.end_time &gt; CURRENT_TIME
+    </select>
+  <select id="getRollText" resultType="zhuffei.ffei.entity.GoodsUserOV">
+    select  goods.id ,goods.name from goods join roll_text on goods.id = roll_text.gid where roll_text.start_time &lt; CURRENT_TIME and roll_text.end_time &gt; CURRENT_TIME
+  </select>
 </mapper>
