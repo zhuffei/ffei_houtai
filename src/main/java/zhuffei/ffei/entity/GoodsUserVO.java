@@ -5,13 +5,13 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class GoodsUserOV {
+public class GoodsUserVO {
     private int id;
     private int uId;
     private String userName;
     private String avator;
     private String name;
-    private String describe;
+    private String des;
     private Double price;
     private int type;
     private String img1;

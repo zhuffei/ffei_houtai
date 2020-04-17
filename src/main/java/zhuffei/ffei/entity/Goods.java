@@ -29,8 +29,8 @@ public class Goods {
     @TableField("name")
     private String name;
 
-    @TableField("goods_describe")
-    private String describe;
+    @TableField("goods_des")
+    private String des;
 
     @TableField("price")
     private Double price;
@@ -68,4 +68,6 @@ public class Goods {
     @TableField("create_time")
     private Timestamp createTime;
 
+    @TableField("update_time")
+    private Timestamp updateTime;
 }

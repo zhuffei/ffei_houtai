@@ -3,8 +3,6 @@ package zhuffei.ffei.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
@@ -20,8 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import zhuffei.ffei.Tool.Return;
+import zhuffei.ffei.entity.CommentUserVO;
 import zhuffei.ffei.entity.Goods;
-import zhuffei.ffei.entity.GoodsUserOV;
+import zhuffei.ffei.entity.GoodsUserVO;
 import zhuffei.ffei.service.IGoodsService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,14 +46,14 @@ public class GoodsController {
    */
   @ResponseBody
   @RequestMapping("listRecentGoods")
-  public Map listRecentGoods(@RequestBody Map<String,String> map) {     //必须传入每页的条数和页数
-    Integer pageSize = Integer.valueOf( map.get("pageSize"));
-    Integer pageNumber = Integer.valueOf( map.get("pageNumber"));
-    if(null == pageSize||null == pageNumber){
+  public Map listRecentGoods(@RequestBody Map<String, String> map) {     //必须传入每页的条数和页数
+    Integer pageSize = Integer.valueOf(map.get("pageSize"));
+    Integer pageNumber = Integer.valueOf(map.get("pageNumber"));
+    if (null == pageSize || null == pageNumber) {
       System.out.println("网络异常");
       return Return.error("网络异常");
     }
-    List<GoodsUserOV> data = goodsService.listRecentGoods(pageSize, pageNumber);
+    List<GoodsUserVO> data = goodsService.listRecentGoods(pageSize, pageNumber);
     return Return.ok("", data);
   }
 
@@ -121,10 +120,10 @@ public class GoodsController {
       return Return.error();
     }
     Goods goods = new Goods();
-    goods.setName(new String(map.get("title").getBytes("ISO8859-1"),"utf-8"));
-    goods.setDescribe(new String(map.get("describe").getBytes("ISO8859-1"),"utf-8"));
+    goods.setName(new String(map.get("title").getBytes("ISO8859-1"), "utf-8"));
+    goods.setDes(new String(map.get("describe").getBytes("ISO8859-1"), "utf-8"));
     goods.setPrice(Double.valueOf(map.get("price")));
-    goods.setLocation(new String(map.get("location").getBytes("ISO8859-1"),"utf-8"));
+    goods.setLocation(new String(map.get("location").getBytes("ISO8859-1"), "utf-8"));
     goods.setType(Integer.valueOf(map.get("type")));
     goods.setUId(Integer.valueOf(map.get("uId")));
     switch (imageNames.size()) {
@@ -143,27 +142,66 @@ public class GoodsController {
         break;
     }
     System.out.println(goods.toString());
-    if(goodsService.save(goods)){
+    if (goodsService.save(goods)) {
       return Return.ok();
-    }else{
+    } else {
       return Return.error();
     }
 
   }
+
   @ResponseBody
   @RequestMapping("getBanner")
-  public Map getBanner(){
+  public Map getBanner() {
     return Return.ok(goodsService.getBanner());
   }
+
   @ResponseBody
   @RequestMapping("getRollText")
-  public Map getRollText(){
-    List<GoodsUserOV> list = goodsService.getRollText();
-    Map<String,Integer> map = new HashMap<>();
-    for(GoodsUserOV g:list){
-      map.put("【求购】"+g.getName(),g.getId());
+  public Map getRollText() {
+    List<GoodsUserVO> list = goodsService.getRollText();
+    Map<String, Integer> map = new HashMap<>();
+    for (GoodsUserVO g : list) {
+      map.put("【求购】" + g.getName(), g.getId());
     }
-     return  Return.ok(map);
+    return Return.ok(map);
+  }
+
+  @ResponseBody
+  @RequestMapping("getGoodsById")
+  public Map getGoodsById(@RequestBody Map map) {
+    int gid = (int) map.get("gid");
+    GoodsUserVO goods = goodsService.getGoods(gid);
+    if (null != goods) {
+      return Return.ok(goods);
+    } else {
+      return Return.error();
+    }
+  }
+
+  @ResponseBody
+  @RequestMapping("viewGoods")
+  public Map viewGoods(@RequestBody Map map) {
+    int gid = (int) map.get("gid");
+    goodsService.viewGoods(gid);
+    GoodsUserVO goods = goodsService.getGoods(gid);
+    if (null != goods) {
+      return Return.ok(goods);
+    } else {
+      return Return.error();
+    }
+  }
+
+  @ResponseBody
+  @RequestMapping("listCommentByGid")
+  public Map listCommentByGid(@RequestBody Map map) {
+    int gid = (int) map.get("gid");
+    List<CommentUserVO> list = goodsService.listCommentByGid(gid);
+    if (null != list) {
+      return Return.ok(list);
+    } else {
+      return Return.error();
+    }
   }
 
 

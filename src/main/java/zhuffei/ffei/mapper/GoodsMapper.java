@@ -1,13 +1,12 @@
 package zhuffei.ffei.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import java.util.Map;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import zhuffei.ffei.entity.CommentUserVO;
 import zhuffei.ffei.entity.Goods;
 
 import java.util.List;
-import zhuffei.ffei.entity.GoodsUserOV;
+import zhuffei.ffei.entity.GoodsUserVO;
 
 /**
  * @author zhuffei
@@ -17,9 +16,15 @@ import zhuffei.ffei.entity.GoodsUserOV;
 //@Mapper
 public interface GoodsMapper extends BaseMapper<Goods> {
 
-  List<GoodsUserOV> listRecentGoods(@Param("pageSize") int pageSize, @Param("pageNumber") int pageNumber);
+  List<GoodsUserVO> listRecentGoods(@Param("pageSize") int pageSize, @Param("pageNumber") int pageNumber);
 
-  List<GoodsUserOV> getBanner();
+  List<GoodsUserVO> getBanner();
 
-  List<GoodsUserOV> getRollText();
+  List<GoodsUserVO> getRollText();
+
+  GoodsUserVO getGoods( @Param("gid") int gid);
+
+  int viewGoods(@Param("gid") int gid);
+
+  List<CommentUserVO> listCommentByGid(@Param("gid") Integer gid);
 }

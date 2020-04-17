@@ -21,18 +21,36 @@
   <!--        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />-->
   <!--    </resultMap>-->
 
-  <select id="listRecentGoods" resultType="zhuffei.ffei.entity.GoodsUserOV">
-        select goods.id,goods.uid,goods.name,goods.goods_describe,goods.price,goods.type,goods.state,
+  <select id="listRecentGoods" resultType="zhuffei.ffei.entity.GoodsUserVO">
+        select goods.id,goods.uid,goods.name,goods.goods_des des,goods.price,goods.type,goods.state,
         goods.location,goods.img1,goods.img2,goods.img3,goods.img4,goods.img5,goods.img6 ,
         goods.browse,goods.create_time createTime,goods.update_time updateTime,
         user.avator,user.name userName
         from goods goods left join user on goods.uid = user.id order by goods.create_time desc limit ${(pageNumber-1)*pageSize},#{pageSize}
     </select>
 
-  <select id="getBanner" resultType="zhuffei.ffei.entity.GoodsUserOV">
+  <select id="getBanner" resultType="zhuffei.ffei.entity.GoodsUserVO">
         select  goods.id ,goods.name,goods.img1 from goods join banner on goods.id = banner.gid where banner.start_time &lt; CURRENT_TIME and banner.end_time &gt; CURRENT_TIME
     </select>
-  <select id="getRollText" resultType="zhuffei.ffei.entity.GoodsUserOV">
+  <select id="getRollText" resultType="zhuffei.ffei.entity.GoodsUserVO">
     select  goods.id ,goods.name from goods join roll_text on goods.id = roll_text.gid where roll_text.start_time &lt; CURRENT_TIME and roll_text.end_time &gt; CURRENT_TIME
   </select>
-</mapper>
+
+  <select id="getGoods" resultType="zhuffei.ffei.entity.GoodsUserVO">
+    select goods.id,goods.uid,goods.name,goods.goods_des des,goods.price,goods.type,goods.state,
+        goods.location,goods.img1,goods.img2,goods.img3,goods.img4,goods.img5,goods.img6 ,
+        goods.browse,goods.create_time createTime,goods.update_time updateTime,
+        user.avator,user.name userName
+        from goods goods left join user on goods.uid = user.id
+        where goods.id = #{gid}
+  </select>
+  <update id="viewGoods">
+    update goods set browse = browse + 1 where  id = #{gid}
+  </update>
+
+  <select id="listCommentByGid" resultType="zhuffei.ffei.entity.CommentUserVO">
+    SELECT comment.id,comment.comment,comment.create_time,user.avator,user.name userName,comment.gid from comment,user,goods
+     where comment.gid = goods.id  and comment.uid = user.id and comment.is_delete = 0 and comment.gid = #{gid}
+
+  </select>
+ </mapper>
