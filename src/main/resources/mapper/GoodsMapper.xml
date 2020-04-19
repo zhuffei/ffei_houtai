@@ -26,7 +26,7 @@
         goods.location,goods.img1,goods.img2,goods.img3,goods.img4,goods.img5,goods.img6 ,
         goods.browse,goods.create_time createTime,goods.update_time updateTime,
         user.avator,user.name userName
-        from goods goods left join user on goods.uid = user.id order by goods.create_time desc limit ${(pageNumber-1)*pageSize},#{pageSize}
+        from goods goods left join user on goods.uid = user.id  where goods.is_deleted = 0 order by goods.create_time desc limit ${(pageNumber-1)*pageSize},#{pageSize}
     </select>
 
   <select id="getBanner" resultType="zhuffei.ffei.entity.GoodsUserVO">

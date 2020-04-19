@@ -29,7 +29,7 @@ public class Return {
     }
     public static Map error(){
         Map map = new HashMap();
-        map.put("msg",false);
+        map.put("state",false);
         return map;
     }
     public static Map error(String msg){
