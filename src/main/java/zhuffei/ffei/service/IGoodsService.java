@@ -26,4 +26,8 @@ public interface IGoodsService extends IService<Goods> {
   int viewGoods(int gid);
 
   List<CommentUserVO> listCommentByGid( Integer gid);
+
+  List<GoodsUserVO> searchGoods(String param);
+
+  List<GoodsUserVO> listFocusGoods( int uid,int pageNumber,int pageSize);
 }

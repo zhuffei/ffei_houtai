@@ -34,4 +34,15 @@ public class RelationServiceImpl implements IRelationService {
     public Integer report(int gid, int uid, String reason) {
         return relationMapper.report(gid,uid,reason);
     }
+
+    @Override
+    public Integer comment(int gid, int uid, String comment) {
+        return relationMapper.comment(gid,uid,comment);
+    }
+
+    @Override
+    public Integer deleteComment(int id) {
+        return relationMapper.deleteComment(id);
+    }
+
 }

@@ -74,4 +74,30 @@ public class RelationController {
             return Return.error();
         }
     }
+
+    @ResponseBody
+    @RequestMapping("comment")
+    public Map comment(@RequestBody Map map) {
+        try {
+            Integer gid = (Integer) map.get("gid");
+            Integer uid = (Integer) map.get("uid");
+            String comment = (String) map.get("comment");
+            return Return.ok(relationService.comment(gid, uid, comment));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Return.error();
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping("deleteComment")
+    public Map deleteComment(@RequestBody Map map) {
+        try {
+            Integer id = (Integer) map.get("id");
+            return Return.ok(relationService.deleteComment(id));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Return.error();
+        }
+    }
 }

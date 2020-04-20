@@ -23,7 +23,7 @@
 
   <select id="listRecentGoods" resultType="zhuffei.ffei.entity.GoodsUserVO">
         select goods.id,goods.uid,goods.name,goods.goods_des des,goods.price,goods.type,goods.state,
-        goods.location,goods.img1,goods.img2,goods.img3,goods.img4,goods.img5,goods.img6 ,
+        goods.location,goods.img1,goods.img2,goods.img3,goods.img4,goods.img5,goods.img6 ,goods.ratio,
         goods.browse,goods.create_time createTime,goods.update_time updateTime,
         user.avator,user.name userName
         from goods goods left join user on goods.uid = user.id  where goods.is_deleted = 0 order by goods.create_time desc limit ${(pageNumber-1)*pageSize},#{pageSize}
@@ -49,8 +49,22 @@
   </update>
 
   <select id="listCommentByGid" resultType="zhuffei.ffei.entity.CommentUserVO">
-    SELECT comment.id,comment.comment,comment.create_time,user.avator,user.name userName,comment.gid from comment,user,goods
+    SELECT comment.id,comment.uid,comment.comment,comment.create_time,user.avator,user.name userName,comment.gid from comment,user,goods
      where comment.gid = goods.id  and comment.uid = user.id and comment.is_delete = 0 and comment.gid = #{gid}
 
+  </select>
+
+  <select id="searchGoods" resultType="zhuffei.ffei.entity.GoodsUserVO">
+    SELECT goods.id,goods.uid,goods.name,goods.goods_des des,goods.price,goods.type,goods.state,
+        goods.location,goods.img1,goods.img2,goods.img3,goods.img4,goods.img5,goods.img6 ,goods.ratio,
+        goods.browse,goods.create_time createTime,goods.update_time updateTime,
+        user.avator,user.name userName FROM goods,user WHERE goods.uid = user.id and  MATCH(goods.name,goods.goods_des) AGAINST(#{param} IN BOOLEAN MODE)
+  </select>
+  <select id="listFocusGoods" resultType="zhuffei.ffei.entity.GoodsUserVO">
+         select goods.id,goods.uid,goods.name,goods.goods_des des,goods.price,goods.type,goods.state,
+        goods.location,goods.img1,goods.img2,goods.img3,goods.img4,goods.img5,goods.img6 ,goods.ratio,
+        goods.browse,goods.create_time createTime,goods.update_time updateTime,
+        user.avator,user.name userName
+        from goods,user,focus where goods.uid = focus.focused_id and user.id = focus.focused_id and goods.is_deleted = 0 and focus.focuser_id = #{uid} order by goods.create_time desc limit ${(pageNumber-1)*pageSize},#{pageSize}
   </select>
  </mapper>

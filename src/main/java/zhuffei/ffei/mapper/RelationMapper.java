@@ -16,4 +16,8 @@ public interface RelationMapper {
     Integer cancelCollect(@Param("gid") int gid,@Param("uid") int uid);
 
     Integer report(@Param("gid")int gid,@Param("uid") int uid,@Param("reason")String reason);
+
+    Integer comment(@Param("gid")int gid,@Param("uid") int uid,@Param("comment")String comment);
+
+    Integer deleteComment(@Param("id") int id);
 }

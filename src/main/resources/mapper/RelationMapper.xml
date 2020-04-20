@@ -13,4 +13,10 @@
     <insert id="report">
         INSERT  into report(gid,uid,reason) values(#{gid},#{uid},#{reason})
     </insert>
+    <insert id="comment">
+        INSERT  into comment(gid,uid,comment) values(#{gid},#{uid},#{comment})
+    </insert>
+    <update id="deleteComment">
+        update comment set is_delete = 1 where id = #{id}
+    </update>
 </mapper>

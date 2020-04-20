@@ -46,4 +46,14 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper,Goods> implements 
     public List<CommentUserVO> listCommentByGid(Integer gid) {
         return baseMapper.listCommentByGid(gid);
     }
+
+    @Override
+    public List<GoodsUserVO> searchGoods(String param) {
+        return baseMapper.searchGoods(param);
+    }
+
+    @Override
+    public List<GoodsUserVO> listFocusGoods(int uid, int pageNumber, int pageSize) {
+        return baseMapper.listFocusGoods(uid,pageNumber,pageSize);
+    }
 }

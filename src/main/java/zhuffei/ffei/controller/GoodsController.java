@@ -123,6 +123,7 @@ public class GoodsController {
     goods.setName(new String(map.get("title").getBytes("ISO8859-1"), "utf-8"));
     goods.setDes(new String(map.get("describe").getBytes("ISO8859-1"), "utf-8"));
     goods.setPrice(Double.valueOf(map.get("price")));
+    goods.setRatio(Double.valueOf(map.get("ratio")));
     goods.setLocation(new String(map.get("location").getBytes("ISO8859-1"), "utf-8"));
     goods.setType(Integer.valueOf(map.get("type")));
     goods.setUId(Integer.valueOf(map.get("uId")));
@@ -204,5 +205,48 @@ public class GoodsController {
     }
   }
 
+  @ResponseBody
+  @RequestMapping("searchGoods")
+  public Map searchGoods(@RequestBody Map map) {
+    String param = (String) map.get("param");
+    param = param.replace(" ", "");
+    StringBuilder builder = new StringBuilder(param);
+    for (int i = 0; i < builder.length() + 1; i = i + 2) {
+      builder.insert(i, "*");
+    }
+    List<GoodsUserVO> list = goodsService.searchGoods(builder.toString());
+    if (null != list) {
+      return Return.ok(list);
+    } else {
+      return Return.error();
+    }
+  }
 
+  @ResponseBody
+  @RequestMapping("listFocusGoods")
+  public Map listFocusGoods(@RequestBody Map<String, Integer> map) {
+    Integer pageSize = map.get("pageSize");
+    Integer pageNumber = map.get("pageNumber");
+    Integer uid = map.get("uid");
+    List<GoodsUserVO> list = goodsService.listFocusGoods(uid, pageNumber, pageSize);
+    if (null != list) {
+      return Return.ok(list);
+    } else {
+      return Return.error();
+    }
+  }
+
+  @ResponseBody
+  @RequestMapping("addBuy")
+  public Map addBuy(@RequestBody Map map) {
+    Goods goods = new Goods();
+    goods.setType(2);
+    goods.setUId((Integer) map.get("uId"));
+    goods.setPrice(Double.valueOf(String.valueOf(map.get("price"))));
+    goods.setLocation((String) map.get("location"));
+    goods.setDes((String) map.get("des"));
+    goods.setName((String) map.get("name"));
+    return goodsService.save(goods) ?
+        Return.ok(1) : Return.ok(0);
+  }
 }

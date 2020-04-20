@@ -62,6 +62,9 @@ public class Goods {
     @TableField("img6")
     private String img6;
 
+    @TableField("ratio")
+    private double ratio;
+
     @TableField("browse")
     private Integer browse;
 

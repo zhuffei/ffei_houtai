@@ -27,4 +27,8 @@ public interface GoodsMapper extends BaseMapper<Goods> {
   int viewGoods(@Param("gid") int gid);
 
   List<CommentUserVO> listCommentByGid(@Param("gid") Integer gid);
+
+  List<GoodsUserVO> searchGoods(@Param("param")String param);
+
+  List<GoodsUserVO> listFocusGoods(@Param("uid") int uid,@Param("pageNumber")int pageNumber,@Param("pageSize")int pageSize);
 }

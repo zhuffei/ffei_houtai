@@ -16,4 +16,8 @@ public interface IRelationService {
     Integer cancelCollect(int gid, int uid);
 
     Integer report(int gid,int uid,String reason);
+
+    Integer comment(int gid,int uid,String comment);
+
+    Integer deleteComment(int id);
 }
