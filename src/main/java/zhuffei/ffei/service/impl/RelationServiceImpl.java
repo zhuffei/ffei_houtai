@@ -2,8 +2,11 @@ package zhuffei.ffei.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import zhuffei.ffei.entity.Goods;
 import zhuffei.ffei.mapper.RelationMapper;
 import zhuffei.ffei.service.IRelationService;
+
+import java.util.List;
 
 /**
  * @author zhuffei
@@ -43,6 +46,26 @@ public class RelationServiceImpl implements IRelationService {
     @Override
     public Integer deleteComment(int id) {
         return relationMapper.deleteComment(id);
+    }
+
+    @Override
+    public List<Goods> listCollectGoods(int uid) {
+        return relationMapper.listCollectGoods(uid);
+    }
+
+    @Override
+    public List<Goods> listMyGoods(int uid) {
+        return relationMapper.listMyGoods(uid);
+    }
+
+    @Override
+    public List<Goods> listMySell(int uid) {
+        return relationMapper.listMySell(uid);
+    }
+
+    @Override
+    public List<Goods> listMyBuy(int uid) {
+        return relationMapper.listMyBuy(uid);
     }
 
 }

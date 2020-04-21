@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import zhuffei.ffei.Tool.Return;
 import zhuffei.ffei.service.IRelationService;
 
+import java.security.spec.ECField;
 import java.util.Map;
 
 /**
@@ -95,6 +96,55 @@ public class RelationController {
         try {
             Integer id = (Integer) map.get("id");
             return Return.ok(relationService.deleteComment(id));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Return.error();
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping("listMyGoods")
+    public Map listMyGoods(@RequestBody Map map) {
+        try {
+
+            Integer uid = (Integer) map.get("uid");
+            return Return.ok(relationService.listMyGoods(uid));
+        } catch (Exception e) {
+            return Return.error();
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping("listCollectGoods")
+    public Map listCollectGoods(@RequestBody Map map) {
+        try {
+
+            Integer uid = (Integer) map.get("uid");
+            return Return.ok(relationService.listCollectGoods(uid));
+        } catch (Exception e) {
+            return Return.error();
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping("listMySell")
+    public Map listMySell(@RequestBody Map map) {
+        try {
+
+            Integer uid = (Integer) map.get("uid");
+            return Return.ok(relationService.listMySell(uid));
+        } catch (Exception e) {
+            return Return.error();
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping("listMyBuy")
+    public Map listMyBuy(@RequestBody Map map) {
+        try {
+
+            Integer uid = (Integer) map.get("uid");
+            return Return.ok(relationService.listMyBuy(uid));
         } catch (Exception e) {
             e.printStackTrace();
             return Return.error();
