@@ -26,17 +26,11 @@ public class User {
     @TableField("pwd")
     private String pwd;
 
-//    @TableField("role")
-//    private int role;
-
     @TableField("state")
     private int state;
 
-//    @TableField("school_id")
-//    private int schoolId;
-
     @TableField("avator")
-    private String img;
+    private String avator;
 
     public User(String name, String phone, String pwd) {
         this.name = name;

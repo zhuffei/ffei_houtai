@@ -1,42 +1,58 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="zhuffei.ffei.mapper.RelationMapper">
-    <select id="checkCollect" resultType="Integer">
+  <select id="checkCollect" resultType="Integer">
         SELECT count(*) from collection where gid = #{gid} and uid = #{uid}
     </select>
-    <insert id="collect">
+  <insert id="collect">
         INSERT into collection(gid,uid) values (#{gid},#{uid})
     </insert>
-    <delete id="cancelCollect" >
+  <delete id="cancelCollect">
         DELETE from collection WHERE gid = #{gid} and uid = #{uid}
     </delete>
-    <insert id="report">
+  <insert id="report">
         INSERT  into report(gid,uid,reason) values(#{gid},#{uid},#{reason})
     </insert>
-    <insert id="comment">
+  <insert id="comment">
         INSERT  into comment(gid,uid,comment) values(#{gid},#{uid},#{comment})
     </insert>
-    <update id="deleteComment">
+  <update id="deleteComment">
         update comment set is_delete = 1 where id = #{id}
     </update>
 
-    <select id="listCollectGoods" resultType="zhuffei.ffei.entity.Goods">
+  <select id="listCollectGoods" resultType="zhuffei.ffei.entity.Goods">
         SELECT goods.id,goods.name,goods.price,goods.type,goods.state,goods.img1 from goods,collection
          where goods.id = collection.gid and collection.uid = #{uid} and goods.is_deleted = 0 order by collection.create_time desc
     </select>
 
-    <select id="listMyGoods" resultType="zhuffei.ffei.entity.Goods">
+  <select id="listMyGoods" resultType="zhuffei.ffei.entity.Goods">
  SELECT id,name,price,type,state,img1 from goods
         where  uid = #{uid} and goods.is_deleted = 0  order by create_time desc    </select>
 
-    <select id="listMySell" resultType="zhuffei.ffei.entity.Goods">
+  <select id="listMySell" resultType="zhuffei.ffei.entity.Goods">
         SELECT goods.id,goods.name,price,type,state,img1 from goods,orders
         where  goods.uid = #{uid} and goods.id  = orders.gid and goods.is_deleted = 0  order by orders.create_time desc
     </select>
 
 
-    <select id="listMyBuy" resultType="zhuffei.ffei.entity.Goods">
+  <select id="listMyBuy" resultType="zhuffei.ffei.entity.Goods">
         SELECT goods.id,goods.name,goods.price,goods.type,goods.state,goods.img1 from goods,orders
         where  orders.buyer = #{uid} and goods.uid = orders.buyer and goods.is_deleted = 0  order by orders.create_time desc
     </select>
+
+  <select id="listFocus" resultType="zhuffei.ffei.entity.User">
+        select  user.id,user.name,user.avator,user.accid from user,focus where focus.focuser_id = #{uid} and user.id = focus.focused_id
+    </select>
+
+  <select id="listFans" resultType="zhuffei.ffei.entity.User">
+        select  user.id,user.name,user.avator,user.accid from user,focus where focus.focuser_id = user.id and #{uid} = focus.focused_id
+    </select>
+
+  <select id="countFocus" resultType="java.lang.Integer">
+        select count(*) from focus where focuser_id = #{uid}
+  </select>
+
+  <select id="countFans" resultType="java.lang.Integer">
+        select count(*) from focus where focused_id = #{uid}
+  </select>
 </mapper>

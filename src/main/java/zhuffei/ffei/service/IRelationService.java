@@ -1,9 +1,11 @@
 package zhuffei.ffei.service;
 
+import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 import zhuffei.ffei.entity.Goods;
 
 import java.util.List;
+import zhuffei.ffei.entity.User;
 
 /**
  * @author zhuffei
@@ -31,4 +33,10 @@ public interface IRelationService {
     List<Goods> listMySell(int uid);
 
     List<Goods> listMyBuy(int uid);
+
+    List<User> listFocus(int uid);
+
+    List<User> listFans( int uid);
+
+    Map<String,Integer> countFocusAndFans(int uid);
 }
