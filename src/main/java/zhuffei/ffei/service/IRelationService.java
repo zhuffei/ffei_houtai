@@ -1,10 +1,12 @@
 package zhuffei.ffei.service;
 
 import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 import zhuffei.ffei.entity.Goods;
 
 import java.util.List;
+
 import zhuffei.ffei.entity.User;
 
 /**
@@ -14,35 +16,39 @@ import zhuffei.ffei.entity.User;
  */
 public interface IRelationService {
 
-  Integer checkCollect(int gid, int uid);
+    Integer checkCollect(int gid, int uid);
 
-  Integer collect(int gid, int uid);
+    Integer collect(int gid, int uid);
 
-  Integer cancelCollect(int gid, int uid);
+    Integer cancelCollect(int gid, int uid);
 
-  Integer report(int gid, int uid, String reason);
+    Integer report(int gid, int uid, String reason);
 
-  Integer comment(int gid, int uid, String comment);
+    Integer comment(int gid, int uid, String comment);
 
-  Integer deleteComment(int id);
+    Integer deleteComment(int id);
 
-  List<Goods> listCollectGoods(int uid);
+    List<Goods> listCollectGoods(int uid);
 
-  List<Goods> listMyGoods(int uid);
+    List<Goods> listMyGoods(int uid);
 
-  List<Goods> listMySell(int uid);
+    List<Goods> listMySell(int uid);
 
-  List<Goods> listMyBuy(int uid);
+    List<Goods> listMyBuy(int uid);
 
-  List<User> listFocus(int uid);
+    List<User> listFocus(int uid);
 
-  List<User> listFans(int uid);
+    List<User> listFans(int uid);
 
-  Map<String, Integer> countFocusAndFans(int uid);
+    Map<String, Integer> countFocusAndFans(int uid);
 
-  Integer checkFocus(int focuser, int focused);
+    Integer checkFocus(int focuser, int focused);
 
-  Integer focus(int focuser, int focused);
+    Integer focus(int focuser, int focused);
 
-  Integer cancelFocus(int focuser, int focused);
+    Integer cancelFocus(int focuser, int focused);
+
+    Integer buy(int gid, int uid);
+
+    Integer changeGoodsState(int gid, int state);
 }

@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Param;
 import zhuffei.ffei.entity.Goods;
 
 import java.util.List;
+
 import zhuffei.ffei.entity.User;
 
 /**
@@ -13,38 +14,42 @@ import zhuffei.ffei.entity.User;
  */
 public interface RelationMapper {
 
-  Integer checkCollect(@Param("gid") int gid, @Param("uid") int uid);
+    Integer checkCollect(@Param("gid") int gid, @Param("uid") int uid);
 
-  Integer collect(@Param("gid") int gid, @Param("uid") int uid);
+    Integer collect(@Param("gid") int gid, @Param("uid") int uid);
 
-  Integer cancelCollect(@Param("gid") int gid, @Param("uid") int uid);
+    Integer cancelCollect(@Param("gid") int gid, @Param("uid") int uid);
 
-  Integer report(@Param("gid") int gid, @Param("uid") int uid, @Param("reason") String reason);
+    Integer report(@Param("gid") int gid, @Param("uid") int uid, @Param("reason") String reason);
 
-  Integer comment(@Param("gid") int gid, @Param("uid") int uid, @Param("comment") String comment);
+    Integer comment(@Param("gid") int gid, @Param("uid") int uid, @Param("comment") String comment);
 
-  Integer deleteComment(@Param("id") int id);
+    Integer deleteComment(@Param("id") int id);
 
-  List<Goods> listCollectGoods(@Param("uid") int uid);
+    List<Goods> listCollectGoods(@Param("uid") int uid);
 
-  List<Goods> listMyGoods(@Param("uid") int uid);
+    List<Goods> listMyGoods(@Param("uid") int uid);
 
-  List<Goods> listMySell(@Param("uid") int uid);
+    List<Goods> listMySell(@Param("uid") int uid);
 
-  List<Goods> listMyBuy(@Param("uid") int uid);
+    List<Goods> listMyBuy(@Param("uid") int uid);
 
-  List<User> listFocus(@Param("uid") int uid);
+    List<User> listFocus(@Param("uid") int uid);
 
-  List<User> listFans(@Param("uid") int uid);
+    List<User> listFans(@Param("uid") int uid);
 
-  Integer countFocus(@Param("uid") int uid);
+    Integer countFocus(@Param("uid") int uid);
 
-  Integer countFans(@Param("uid") int uid);
+    Integer countFans(@Param("uid") int uid);
 
-  Integer checkFocus(@Param("focuser") int focuser, @Param("focused") int focused);
+    Integer checkFocus(@Param("focuser") int focuser, @Param("focused") int focused);
 
-  Integer focus(@Param("focuser") int focuser, @Param("focused") int focused);
+    Integer focus(@Param("focuser") int focuser, @Param("focused") int focused);
 
-  Integer cancelFocus(@Param("focuser") int focuser, @Param("focused") int focused);
+    Integer cancelFocus(@Param("focuser") int focuser, @Param("focused") int focused);
+
+    Integer buy(@Param("gid") int gid, @Param("uid") int uid);
+
+    Integer changeGoodsState(@Param("gid") int gid, @Param("state") int state);
 
 }
