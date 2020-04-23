@@ -55,4 +55,16 @@
   <select id="countFans" resultType="java.lang.Integer">
         select count(*) from focus where focused_id = #{uid}
   </select>
+
+  <select id="checkFocus" resultType="java.lang.Integer">
+    select count(*) from focus where focuser_id = #{focuser} and focused_id = #{focused}
+  </select>
+
+  <insert id="focus">
+    insert  into focus (focuser_id,focused_id) values (#{focuser},#{focused})
+  </insert>
+
+  <delete id="cancelFocus">
+    delete  from focus where focuser_id = #{focuser} and focused_id = #{focused}
+  </delete>
 </mapper>

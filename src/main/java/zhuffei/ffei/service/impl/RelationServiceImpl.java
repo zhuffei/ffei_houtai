@@ -84,10 +84,25 @@ public class RelationServiceImpl implements IRelationService {
 
   @Override
   public Map<String, Integer> countFocusAndFans(int uid) {
-    Map<String,Integer> map = new HashMap<>();
-    map.put("fans",relationMapper.countFans(uid));
-    map.put("focus",relationMapper.countFocus(uid));
+    Map<String, Integer> map = new HashMap<>();
+    map.put("fans", relationMapper.countFans(uid));
+    map.put("focus", relationMapper.countFocus(uid));
     return map;
+  }
+
+  @Override
+  public Integer checkFocus(int focuser, int focused) {
+    return relationMapper.checkFocus(focuser, focused);
+  }
+
+  @Override
+  public Integer focus(int focuser, int focused) {
+    return relationMapper.focus(focuser, focused);
+  }
+
+  @Override
+  public Integer cancelFocus(int focuser, int focused) {
+    return relationMapper.cancelFocus(focuser, focused);
   }
 
 }

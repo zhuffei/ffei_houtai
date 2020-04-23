@@ -148,7 +148,6 @@ public class GoodsController {
     } else {
       return Return.error();
     }
-
   }
 
   @ResponseBody
@@ -249,4 +248,5 @@ public class GoodsController {
     return goodsService.save(goods) ?
         Return.ok(1) : Return.ok(0);
   }
+
 }

@@ -1,11 +1,14 @@
 package zhuffei.ffei.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import zhuffei.ffei.Tool.Return;
+import zhuffei.ffei.entity.User;
 import zhuffei.ffei.service.IRelationService;
 
 import java.security.spec.ECField;
@@ -157,7 +160,11 @@ public class RelationController {
     try {
 
       Integer uid = (Integer) map.get("uid");
-      return Return.ok(relationService.listFocus(uid));
+      List<User> list = relationService.listFocus(uid);
+      for(User user:list){
+        user.setIsFocused(1);
+      }
+      return Return.ok(list);
     } catch (Exception e) {
       e.printStackTrace();
       return Return.error();
@@ -168,9 +175,17 @@ public class RelationController {
   @RequestMapping("listFans")
   public Map listFans(@RequestBody Map map) {
     try {
-
       Integer uid = (Integer) map.get("uid");
-      return Return.ok(relationService.listFans(uid));
+      List<User> list = relationService.listFans(uid);
+      List<User> focus = relationService.listFocus(uid);
+      List<Integer> focusId = new ArrayList<>();
+      for(User user:focus){
+        focusId.add(user.getId());
+      }
+      for (User user : list) {
+        user.setIsFocused(focusId.contains(user.getId()) ? 1 : 0);
+      }
+      return Return.ok(list);
     } catch (Exception e) {
       e.printStackTrace();
       return Return.error();
@@ -190,4 +205,51 @@ public class RelationController {
     }
   }
 
+
+  @ResponseBody
+  @RequestMapping("focus")
+  public Map focus(@RequestBody Map map) {
+    try {
+      Integer focuser = (Integer) map.get("focuser");
+      Integer focused = (Integer) map.get("focused");
+      if (relationService.checkFocus(focuser, focused) == 0) {
+        return Return.ok(relationService.focus(focuser, focused));
+      } else {
+        return Return.ok(1);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      return Return.error();
+    }
+  }
+
+  @ResponseBody
+  @RequestMapping("cancelFocus")
+  public Map cancelFocus(@RequestBody Map map) {
+    try {
+      Integer focuser = (Integer) map.get("focuser");
+      Integer focused = (Integer) map.get("focused");
+      if (relationService.checkFocus(focuser, focused) == 1) {
+        return Return.ok(relationService.cancelFocus(focuser, focused));
+      } else {
+        return Return.ok(1);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      return Return.error();
+    }
+  }
+
+  @ResponseBody
+  @RequestMapping("checkFocus")
+  public Map checkFocus(@RequestBody Map map) {
+    try {
+      Integer focuser = (Integer) map.get("focuser");
+      Integer focused = (Integer) map.get("focused");
+      return Return.ok(relationService.checkFocus(focuser, focused));
+    } catch (Exception e) {
+      e.printStackTrace();
+      return Return.error();
+    }
+  }
 }

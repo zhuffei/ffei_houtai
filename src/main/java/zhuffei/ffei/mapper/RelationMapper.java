@@ -41,4 +41,10 @@ public interface RelationMapper {
 
   Integer countFans(@Param("uid") int uid);
 
+  Integer checkFocus(@Param("focuser") int focuser, @Param("focused") int focused);
+
+  Integer focus(@Param("focuser") int focuser, @Param("focused") int focused);
+
+  Integer cancelFocus(@Param("focuser") int focuser, @Param("focused") int focused);
+
 }
