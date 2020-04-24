@@ -163,7 +163,7 @@ public class GoodsController {
         List<GoodsUserVO> list = goodsService.getRollText();
         Map<String, Integer> map = new HashMap<>();
         for (GoodsUserVO g : list) {
-            map.put("【求购】" + g.getName(), g.getId());
+            map.put(g.getName(), g.getId());
         }
         return Return.ok(map);
     }
@@ -256,4 +256,16 @@ public class GoodsController {
                 Return.ok(1) : Return.ok(0);
     }
 
+
+    @ResponseBody
+    @RequestMapping("banGoods")
+    public Map banGoods(@RequestBody Map map) {
+        try {
+            int gid = (int) map.get("gid");
+            return Return.ok(goodsService.banGoods(gid));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Return.error();
+        }
+    }
 }

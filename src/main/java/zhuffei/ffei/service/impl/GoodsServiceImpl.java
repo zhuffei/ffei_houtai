@@ -16,10 +16,10 @@ import java.util.List;
  * @date 2020/4/9 15:16
  */
 @Service("goodsService")
-public class GoodsServiceImpl extends ServiceImpl<GoodsMapper,Goods> implements IGoodsService {
+public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements IGoodsService {
 
-    public List<GoodsUserVO> listRecentGoods(int pageSize, int pageNumber){
-        return baseMapper.listRecentGoods(pageSize,pageNumber);
+    public List<GoodsUserVO> listRecentGoods(int pageSize, int pageNumber) {
+        return baseMapper.listRecentGoods(pageSize, pageNumber);
     }
 
     @Override
@@ -54,6 +54,16 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper,Goods> implements 
 
     @Override
     public List<GoodsUserVO> listFocusGoods(int uid, int pageNumber, int pageSize) {
-        return baseMapper.listFocusGoods(uid,pageNumber,pageSize);
+        return baseMapper.listFocusGoods(uid, pageNumber, pageSize);
+    }
+
+    @Override
+    public int banGoods(int gid) {
+        return baseMapper.banGoods(gid);
+    }
+
+    @Override
+    public int checkWall(int gid) {
+        return baseMapper.checkWall(gid);
     }
 }

@@ -41,11 +41,11 @@
     </select>
 
     <select id="listFocus" resultType="zhuffei.ffei.entity.User">
-        select  user.id,user.name,user.avator,user.accid from user,focus where focus.focuser_id = #{uid} and user.id = focus.focused_id
+        select  user.id,user.name,user.avator from user,focus where focus.focuser_id = #{uid} and user.id = focus.focused_id
     </select>
 
     <select id="listFans" resultType="zhuffei.ffei.entity.User">
-        select  user.id,user.name,user.avator,user.accid from user,focus where focus.focuser_id = user.id and #{uid} = focus.focused_id
+        select  user.id,user.name,user.avator from user,focus where focus.focuser_id = user.id and #{uid} = focus.focused_id
     </select>
 
     <select id="countFocus" resultType="java.lang.Integer">

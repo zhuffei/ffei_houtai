@@ -6,6 +6,7 @@ import zhuffei.ffei.entity.CommentUserVO;
 import zhuffei.ffei.entity.Goods;
 
 import java.util.List;
+
 import zhuffei.ffei.entity.GoodsUserVO;
 
 /**
@@ -16,19 +17,23 @@ import zhuffei.ffei.entity.GoodsUserVO;
 //@Mapper
 public interface GoodsMapper extends BaseMapper<Goods> {
 
-  List<GoodsUserVO> listRecentGoods(@Param("pageSize") int pageSize, @Param("pageNumber") int pageNumber);
+    List<GoodsUserVO> listRecentGoods(@Param("pageSize") int pageSize, @Param("pageNumber") int pageNumber);
 
-  List<GoodsUserVO> getBanner();
+    List<GoodsUserVO> getBanner();
 
-  List<GoodsUserVO> getRollText();
+    List<GoodsUserVO> getRollText();
 
-  GoodsUserVO getGoods( @Param("gid") int gid);
+    GoodsUserVO getGoods(@Param("gid") int gid);
 
-  int viewGoods(@Param("gid") int gid);
+    int viewGoods(@Param("gid") int gid);
 
-  List<CommentUserVO> listCommentByGid(@Param("gid") Integer gid);
+    List<CommentUserVO> listCommentByGid(@Param("gid") Integer gid);
 
-  List<GoodsUserVO> searchGoods(@Param("param")String param);
+    List<GoodsUserVO> searchGoods(@Param("param") String param);
 
-  List<GoodsUserVO> listFocusGoods(@Param("uid") int uid,@Param("pageNumber")int pageNumber,@Param("pageSize")int pageSize);
+    List<GoodsUserVO> listFocusGoods(@Param("uid") int uid, @Param("pageNumber") int pageNumber, @Param("pageSize") int pageSize);
+
+    int banGoods(@Param("gid") int gid);
+
+    int checkWall(@Param("gid") int gid);
 }

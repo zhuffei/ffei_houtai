@@ -13,6 +13,7 @@ public class GoodsUserVO {
     private String name;
     private String des;
     private Double price;
+    private String accid;
     private int type;
     private String img1;
     private String img2;

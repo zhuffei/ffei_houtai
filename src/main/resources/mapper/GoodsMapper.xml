@@ -2,26 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="zhuffei.ffei.mapper.GoodsMapper">
 
-  <!--    <resultMap id="goodsMap" type="zhuffei.ffei.entity.Goods">-->
-  <!--        <id column="id" property="id" jdbcType="INTEGER" />-->
-  <!--        <result column="uid" property="uId" jdbcType="INTEGER" />-->
-  <!--        <result column="F_CNAME" property="fcName" jdbcType="VARCHAR" />-->
-  <!--        <result column="name" property="name" jdbcType="VARCHAR" />-->
-  <!--        <result column="goods_describe" property="describe" jdbcType="VARCHAR" />-->
-  <!--        <result column="price" property="price" jdbcType="DECIMAL" />-->
-  <!--        <result column="type" property="type" jdbcType="INTEGER" />-->
-  <!--        <result column="state" property="state" jdbcType="INTEGER" />-->
-  <!--        <result column="location" property="location" jdbcType="VARCHAR" />-->
-  <!--        <result column="img1" property="img1" jdbcType="VARCHAR" />-->
-  <!--        <result column="img2" property="img2" jdbcType="VARCHAR" />-->
-  <!--        <result column="img3" property="img3" jdbcType="VARCHAR" />-->
-  <!--        <result column="img4" property="img4" jdbcType="VARCHAR" />-->
-  <!--        <result column="img5" property="img5" jdbcType="VARCHAR" />-->
-  <!--        <result column="browse" property="browse" jdbcType="VARCHAR" />-->
-  <!--        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />-->
-  <!--    </resultMap>-->
-
-  <select id="listRecentGoods" resultType="zhuffei.ffei.entity.GoodsUserVO">
+    <select id="listRecentGoods" resultType="zhuffei.ffei.entity.GoodsUserVO">
         select goods.id,goods.uid,goods.name,goods.goods_des des,goods.price,goods.type,goods.state,
         goods.location,goods.img1,goods.img2,goods.img3,goods.img4,goods.img5,goods.img6 ,goods.ratio,
         goods.browse,goods.create_time createTime,goods.update_time updateTime,
@@ -29,42 +10,52 @@
         from goods goods left join user on goods.uid = user.id  where goods.is_deleted = 0 and goods.state = 1 order by goods.create_time desc limit ${(pageNumber-1)*pageSize},#{pageSize}
     </select>
 
-  <select id="getBanner" resultType="zhuffei.ffei.entity.GoodsUserVO">
+    <select id="getBanner" resultType="zhuffei.ffei.entity.GoodsUserVO">
         select  goods.id ,goods.name,goods.img1 from goods join banner on goods.id = banner.gid where goods.is_deleted = 0 and  goods.state =1 and banner.start_time &lt; CURRENT_TIME and banner.end_time &gt; CURRENT_TIME
     </select>
-  <select id="getRollText" resultType="zhuffei.ffei.entity.GoodsUserVO">
+    <select id="getRollText" resultType="zhuffei.ffei.entity.GoodsUserVO">
     select  goods.id ,goods.name from goods join roll_text on goods.id = roll_text.gid where goods.is_deleted = 0 and  goods.state =1 and roll_text.start_time &lt; CURRENT_TIME and roll_text.end_time &gt; CURRENT_TIME
   </select>
 
-  <select id="getGoods" resultType="zhuffei.ffei.entity.GoodsUserVO">
+    <select id="getGoods" resultType="zhuffei.ffei.entity.GoodsUserVO">
     select goods.id,goods.uid,goods.name,goods.goods_des des,goods.price,goods.type,goods.state,
         goods.location,goods.img1,goods.img2,goods.img3,goods.img4,goods.img5,goods.img6 ,
         goods.browse,goods.create_time createTime,goods.update_time updateTime,
-        user.avator,user.name userName
+        user.avator,user.name userName,user.accid
         from goods goods left join user on goods.uid = user.id
         where goods.id = #{gid}
   </select>
-  <update id="viewGoods">
+    <update id="viewGoods">
     update goods set browse = browse + 1 where  id = #{gid}
   </update>
 
-  <select id="listCommentByGid" resultType="zhuffei.ffei.entity.CommentUserVO">
+    <select id="listCommentByGid" resultType="zhuffei.ffei.entity.CommentUserVO">
     SELECT comment.id,comment.uid,comment.comment,comment.create_time,user.avator,user.name userName,comment.gid from comment,user,goods
      where comment.gid = goods.id  and comment.uid = user.id and comment.is_delete = 0 and comment.gid = #{gid}
 
   </select>
 
-  <select id="searchGoods" resultType="zhuffei.ffei.entity.GoodsUserVO">
+    <select id="searchGoods" resultType="zhuffei.ffei.entity.GoodsUserVO">
     SELECT goods.id,goods.uid,goods.name,goods.goods_des des,goods.price,goods.type,goods.state,
         goods.location,goods.img1,goods.img2,goods.img3,goods.img4,goods.img5,goods.img6 ,goods.ratio,
         goods.browse,goods.create_time createTime,goods.update_time updateTime,
         user.avator,user.name userName FROM goods,user WHERE goods.uid = user.id and  goods.is_deleted = 0 and  goods.state =1 and  MATCH(goods.name,goods.goods_des) AGAINST(#{param} IN BOOLEAN MODE)
   </select>
-  <select id="listFocusGoods" resultType="zhuffei.ffei.entity.GoodsUserVO">
+    <select id="listFocusGoods" resultType="zhuffei.ffei.entity.GoodsUserVO">
          select goods.id,goods.uid,goods.name,goods.goods_des des,goods.price,goods.type,goods.state,
         goods.location,goods.img1,goods.img2,goods.img3,goods.img4,goods.img5,goods.img6 ,goods.ratio,
         goods.browse,goods.create_time createTime,goods.update_time updateTime,
         user.avator,user.name userName
         from goods,user,focus where goods.uid = focus.focused_id and user.id = focus.focused_id and goods.is_deleted = 0 and goods.state = 1 and focus.focuser_id = #{uid} order by goods.create_time desc limit ${(pageNumber-1)*pageSize},#{pageSize}
   </select>
- </mapper>
+    <update id="banGoods">
+        update goods set state = -1 where id = #{gid}
+    </update>
+
+    <select id="checkWall" resultType="java.lang.Integer">
+        select count(*) from roll_text,banner where
+ (roll_text.gid = #{gid} and roll_text.end_time>CURRENT_TIME())
+ or (banner.gid = #{gid}
+ and banner.end_time>CURRENT_TIME())
+    </select>
+</mapper>

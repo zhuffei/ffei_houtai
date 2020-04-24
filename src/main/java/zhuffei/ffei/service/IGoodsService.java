@@ -6,6 +6,7 @@ import zhuffei.ffei.entity.CommentUserVO;
 import zhuffei.ffei.entity.Goods;
 
 import java.util.List;
+
 import zhuffei.ffei.entity.GoodsUserVO;
 
 /**
@@ -15,19 +16,23 @@ import zhuffei.ffei.entity.GoodsUserVO;
  */
 public interface IGoodsService extends IService<Goods> {
 
-  List<GoodsUserVO> listRecentGoods(int pageSize, int pageNumber);
+    List<GoodsUserVO> listRecentGoods(int pageSize, int pageNumber);
 
-  List<GoodsUserVO> getBanner();
+    List<GoodsUserVO> getBanner();
 
-  List<GoodsUserVO> getRollText();
+    List<GoodsUserVO> getRollText();
 
-  GoodsUserVO getGoods(int gid);
+    GoodsUserVO getGoods(int gid);
 
-  int viewGoods(int gid);
+    int viewGoods(int gid);
 
-  List<CommentUserVO> listCommentByGid( Integer gid);
+    List<CommentUserVO> listCommentByGid(Integer gid);
 
-  List<GoodsUserVO> searchGoods(String param);
+    List<GoodsUserVO> searchGoods(String param);
 
-  List<GoodsUserVO> listFocusGoods( int uid,int pageNumber,int pageSize);
+    List<GoodsUserVO> listFocusGoods(int uid, int pageNumber, int pageSize);
+
+    int banGoods(int gid);
+
+    int checkWall(int gid);
 }

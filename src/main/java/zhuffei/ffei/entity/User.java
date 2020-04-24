@@ -14,33 +14,36 @@ import lombok.Data;
 @TableName("user")
 public class User {
 
-  @TableId(value = "id", type = IdType.AUTO)
-  private Integer id;
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
 
-  @TableField("name")
-  private String name;
+    @TableField("name")
+    private String name;
 
-  @TableField("phone")
-  private String phone;
+    @TableField("accid")
+    private String accid;
 
-  @TableField("pwd")
-  private String pwd;
+    @TableField("phone")
+    private String phone;
 
-  @TableField("state")
-  private int state;
+    @TableField("pwd")
+    private String pwd;
 
-  @TableField("avator")
-  private String avator;
+    @TableField("state")
+    private int state;
 
-  @TableField(exist = false)
-  private Integer isFocused;
+    @TableField("avator")
+    private String avator;
 
-  public User(String name, String phone, String pwd) {
-    this.name = name;
-    this.phone = phone;
-    this.pwd = pwd;
-  }
+    @TableField(exist = false)
+    private Integer isFocused;
 
-  public User() {
-  }
+    public User(String name, String phone, String pwd) {
+        this.name = name;
+        this.phone = phone;
+        this.pwd = pwd;
+    }
+
+    public User() {
+    }
 }
