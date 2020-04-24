@@ -140,7 +140,8 @@ public class UserController {
    */
   @ResponseBody
   @RequestMapping("changeAvator")
-  public Map addGoods(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+  public Map changeAvator(HttpServletRequest request, HttpServletResponse response)
+      throws IOException, ServletException {
     String fileName = null;
     Map<String, String> map = new HashMap<>();
     try {
@@ -198,8 +199,25 @@ public class UserController {
       user.setAvator(fileName);
     }
     if (userService.updateById(user)) {
-      return Return.ok();
+      return Return.ok(fileName);
     } else {
+      return Return.error();
+    }
+  }
+
+  @ResponseBody
+  @RequestMapping("getUidByAccid")
+  public Map getUserByAccid(@RequestBody Map<String, Object> map) {
+    try {
+      String accid = (String) map.get("accid");
+      System.out.println(accid);
+      QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+      queryWrapper.eq("accid", accid);
+      User user = userService.getOne(queryWrapper);
+      System.out.println(user.toString());
+      return Return.ok(user.getId());
+    } catch (Exception e) {
+      e.printStackTrace();
       return Return.error();
     }
   }
