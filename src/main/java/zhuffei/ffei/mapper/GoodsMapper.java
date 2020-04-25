@@ -36,4 +36,12 @@ public interface GoodsMapper extends BaseMapper<Goods> {
     int banGoods(@Param("gid") int gid);
 
     int checkWall(@Param("gid") int gid);
+
+    int upWallBanner(@Param("gid") int gid);
+
+    int upWallText(@Param("gid") int gid);
+
+    int getState(@Param("gid") int gid);
+
+    int setState(@Param("gid") int gid, @Param("state") int state);
 }

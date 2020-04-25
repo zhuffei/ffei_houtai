@@ -21,22 +21,22 @@
     </update>
 
     <select id="listCollectGoods" resultType="zhuffei.ffei.entity.Goods">
-        SELECT goods.id,goods.name,goods.price,goods.type,goods.state,goods.img1 from goods,collection
+        SELECT goods.uid,goods.id,goods.name,goods.price,goods.type,goods.state,goods.img1 from goods,collection
          where goods.id = collection.gid and collection.uid = #{uid} and goods.is_deleted = 0 order by collection.create_time desc
     </select>
 
     <select id="listMyGoods" resultType="zhuffei.ffei.entity.Goods">
- SELECT id,name,price,type,state,img1 from goods
+ SELECT uid, id,name,price,type,state,img1 from goods
         where  uid = #{uid} and goods.is_deleted = 0  order by create_time desc    </select>
 
     <select id="listMySell" resultType="zhuffei.ffei.entity.Goods">
-        SELECT goods.id,goods.name,price,type,state,img1 from goods,orders
+        SELECT goods.uid, goods.id,goods.name,price,type,state,img1 from goods,orders
         where  goods.uid = #{uid} and goods.id  = orders.gid and goods.is_deleted = 0  order by orders.create_time desc
     </select>
 
 
     <select id="listMyBuy" resultType="zhuffei.ffei.entity.Goods">
-        SELECT goods.id,goods.name,goods.price,goods.type,goods.state,goods.img1 from goods,orders
+        SELECT goods.uid,goods.id,goods.name,goods.price,goods.type,goods.state,goods.img1 from goods,orders
         where  orders.buyer = #{uid} and goods.id = orders.gid and goods.is_deleted = 0  order by orders.create_time desc
     </select>
 

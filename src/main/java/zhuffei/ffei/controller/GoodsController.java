@@ -268,4 +268,47 @@ public class GoodsController {
             return Return.error();
         }
     }
+
+    @ResponseBody
+    @RequestMapping("checkWall")
+    public Map checkWall(@RequestBody Map map) {
+        try {
+            int gid = (int) map.get("gid");
+            return Return.ok(goodsService.checkWall(gid));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Return.error();
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping("upWall")
+    public Map upWall(@RequestBody Map map) {
+        try {
+            int gid = (int) map.get("gid");
+            Goods goods = goodsService.getById(gid);
+
+            return Return.ok(goods.getType() == 1 ? goodsService.upWallBanner(gid) : goodsService.upWallText(gid));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Return.error();
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping("changeState")
+    public Map changeState(@RequestBody Map map) {
+        try {
+            int gid = (int) map.get("gid");
+            int state = (int) map.get("state");
+            if (goodsService.getState(gid) == 2) {
+                return Return.ok(goodsService.setState(gid, state));
+            } else {
+                return Return.ok(goodsService.setState(gid, 5));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Return.error();
+        }
+    }
 }

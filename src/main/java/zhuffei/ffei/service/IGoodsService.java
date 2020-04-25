@@ -35,4 +35,12 @@ public interface IGoodsService extends IService<Goods> {
     int banGoods(int gid);
 
     int checkWall(int gid);
+
+    int upWallBanner(int gid);
+
+    int upWallText(int gid);
+
+    int getState( int gid);
+
+    int setState( int gid,  int state);
 }

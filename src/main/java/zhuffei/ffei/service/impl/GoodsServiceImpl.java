@@ -66,4 +66,24 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
     public int checkWall(int gid) {
         return baseMapper.checkWall(gid);
     }
+
+    @Override
+    public int upWallBanner(int gid) {
+        return baseMapper.upWallBanner(gid);
+    }
+
+    @Override
+    public int upWallText(int gid) {
+        return baseMapper.upWallText(gid);
+    }
+
+    @Override
+    public int getState(int gid) {
+        return baseMapper.getState(gid);
+    }
+
+    @Override
+    public int setState(int gid, int state) {
+        return baseMapper.setState(gid, state);
+    }
 }

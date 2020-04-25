@@ -58,4 +58,16 @@
  or (banner.gid = #{gid}
  and banner.end_time>CURRENT_TIME())
     </select>
+    <insert id="upWallBanner">
+        insert into banner(gid,end_time) values (#{gid},date_add(now(),   INTERVAL   1   day))
+    </insert>
+    <insert id="upWallText">
+        insert into roll_text(gid,end_time) values (#{gid},date_add(now(),   INTERVAL   1   day))
+    </insert>
+    <select id="getState" resultType="java.lang.Integer">
+        SELECT state from goods where id = #{gid}
+    </select>
+    <update id="setState">
+        update goods set state = #{state} where id = #{gid}
+    </update>
 </mapper>
