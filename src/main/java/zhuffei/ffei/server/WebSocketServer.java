@@ -63,10 +63,10 @@ public class WebSocketServer {
         Map map = JSON.parseObject(message, HashMap.class);
         BigDecimal lat = (BigDecimal) map.get("lat");
         BigDecimal lng = (BigDecimal) map.get("lng");
-        int uid = (int) map.get("uid");
+        String accid = (String) map.get("target");
         map.remove("uid");
         String msg = JSON.toJSONString(map);
-        sendMessageToUsers(msg,uid+"");
+        sendMessageToUsers(msg,accid);
     }
 
     /**
