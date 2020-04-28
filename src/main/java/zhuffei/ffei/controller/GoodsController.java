@@ -79,7 +79,8 @@ public class GoodsController {
         //获得磁盘文件条目工厂
         DiskFileItemFactory factory = new DiskFileItemFactory();
         //获取文件需要上传到的路径
-        String path = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\goodsImg";
+//        String path = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\goodsImg";
+        String path = "goodsImg";
         File file = new File(path);
         if (!file.exists()) {
             file.mkdirs();

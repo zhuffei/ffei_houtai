@@ -3,19 +3,270 @@
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
-  <script type="text/javascript" src="/static/plugins/element-ui3/vue.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="/static/plugins/element-ui3/index.css"/>
+  <!-- 引入样式 -->
+  <link rel="stylesheet" href="../static/plugins/element-ui3/index.css">
+  <!-- 引入组件库 -->
+  <style type="text/css">
+    html body {
+      padding: 0;
+      margin: 0;
+    }
+
+    #left {
+      float: left;
+      width: 250px;
+      height: 100%;
+    }
+
+    #content {
+      height: 100%;
+      width: 100%;
+    }
+
+    #leftHead {
+      width: 100%;
+      height: 300px;
+
+    }
+
+    #adminName {
+      font-size: 20px;
+      font-family: 黑体;
+      color: #007ee5;
+      text-align: center;
+      display: block;
+      line-height: 20px;
+    }
+
+    .avator {
+      border: 1px solid #ddd;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      padding: 4px;
+    }
+
+    #adminTitle {
+      font-size: 30px;
+      font-family: 黑体;
+      color: #007ee5;
+      text-align: center;
+      display: block;
+      line-height: 60px;
+    }
+
+    #adminAvator {
+      margin-top: 60px;
+      width: 100%;
+      height: 100px;
+      alignment: center;
+      text-align: center;
+    }
+
+    p {
+      font-size: 30px;
+    }
+
+    #right {
+      left: 250px;
+      right: 0;
+      position: absolute;
+      background-color: #EBEFF2;
+      height: 100%;
+    }
+
+    .el-tabs__item {
+      height: 53px;
+      width: 250px;
+      line-height: 53px;
+      font-size: 17px;
+      font-family: 微软雅黑;
+      border-bottom: 1px solid #dedede;
+    }
+
+    .el-tabs--left .el-tabs__item.is-left {
+      text-align: center;
+    }
+
+    .right {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+    .el-main {
+      padding: 0;
+    }
+
+    .el-container {
+      height: 100%;
+    }
+
+    #first {
+
+    }
+
+    #second {
+      display: none;
+    }
+
+    #third {
+      display: none;
+    }
+
+    .el-row {
+      width: 100%;
+      height: 500px;
+      float: left;
+    }
+
+    .el-col {
+      height: 100%;
+    }
+
+    .el-card {
+      margin: 20px;
+    }
+
+    .cardName {
+      width: 60px;
+      height: 60px;
+      font-family: 微软雅黑;
+    }
+    #chart1{
+      height: 150px;
+      width: 150px;
+    }
+  </style>
 </head>
+
 <body>
 <div id="content">
-  <div id="left"></div>
-  <el-tabs :tab-position="tabPosition" style="height: 200px;">
-    <el-tab-pane label="用户管理">用户管理</el-tab-pane>
-    <el-tab-pane label="配置管理">配置管理</el-tab-pane>
-    <el-tab-pane label="角色管理">角色管理</el-tab-pane>
-    <el-tab-pane label="定时任务补偿">定时任务补偿</el-tab-pane>
-  </el-tabs>
+  <div id="left">
+    <div id=leftHead>
+      <span id="adminTitle">飞飞</span>
+      <div id="adminAvator">
+        <img src="../avator/992dadb6-cc17-4a6a-b74f-6414fe3f97ce.jpg" class="avator">
+      </div>
+      <span id="adminName">zhuffei</span>
+    </div>
+    <template>
+
+
+      <el-tabs tab-position="left" style="width: 250px;">
+        <el-tab-pane label="概览"></el-tab-pane>
+        <el-tab-pane label="发布审核"></el-tab-pane>
+        <el-tab-pane label="举报审核"></el-tab-pane>
+        <el-tab-pane label="其他"></el-tab-pane>
+      </el-tabs>
+    </template>
+  </div>
+  <div id="right">
+    <el-container>
+      <el-header>管理员</el-header>
+      <el-main>
+        <div id="first" class="right">
+          <el-row>
+            <el-col :span="6">
+              <el-card class="box-card">
+                <div>
+                    <span class="cardName">
+                      今日交易数量
+                    </span>
+                  <div
+                  id="chart1"></div>
+                </div>
+              </el-card>
+            </el-col>
+            <el-col :span="6">
+              <el-card class="box-card">
+                <div>
+
+                </div>
+              </el-card>
+            </el-col>
+            <el-col :span="6">
+              <el-card class="box-card">
+                <div>
+
+                </div>
+              </el-card>
+            </el-col>
+            <el-col :span="6">
+              <el-card class="box-card">
+                <div>
+
+                </div>
+              </el-card>
+            </el-col>
+          </el-row>
+        </div>
+        <div id="second" class="right"></div>
+        <div id="third" class="right"></div>
+      </el-main>
+    </el-container>
+  </div>
+
+
 </div>
 </body>
-<script type="text/javascript" src=/static/plugins/element-ui3/index.js"></script>
+<script src="../static/plugins/element-ui3/vue.js"></script>
+<script src="../static/plugins/element-ui3/index.js"></script>
+<script src="../static/plugins/echarts.min.js"></script>
+<script src="../static/plugins/assets/js/jquery-2.1.0.js"></script>
+<script>
+
+  $(function () {
+    vm.drawChat1();
+
+  })
+  var vm = new Vue({
+    el: "#content",
+    data: {
+      activeName: 'second',
+    }
+    ,
+    methods: {
+      handleClick: function (tab, event) {
+      },
+      drawChat1: function () {
+        var myChart = echarts.init(document.getElementById('chart1'));
+        var option = {
+          tooltip: {
+            trigger: 'item',
+            formatter: '{a} <br/>{b}: {c} ({d}%)'
+          },
+
+          series: [
+            {
+              name: '访问来源',
+              type: 'pie',
+              radius: ['50%', '70%'],
+              avoidLabelOverlap: false,
+              label: {
+                show: false,
+                position: 'center'
+              },
+              emphasis: {
+                label: {
+                  show: true,
+                  fontSize: '30',
+                  fontWeight: 'bold'
+                }
+              },
+              labelLine: {
+                show: false
+              },
+              data: [
+                {value: 335, name: '直接访问'}
+              ]
+            }
+          ]
+        };
+        myChart.setOption(option);
+
+      }
+    }
+  })
+</script>
 </html>
