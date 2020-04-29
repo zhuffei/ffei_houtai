@@ -312,4 +312,12 @@ public class GoodsController {
             return Return.error();
         }
     }
+
+    @ResponseBody
+    @RequestMapping("countData")
+    public Map countData() {
+        return goodsService.countData();
+    }
+
+
 }

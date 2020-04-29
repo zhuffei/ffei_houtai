@@ -6,6 +6,7 @@ import zhuffei.ffei.entity.CommentUserVO;
 import zhuffei.ffei.entity.Goods;
 
 import java.util.List;
+import java.util.Map;
 
 import zhuffei.ffei.entity.GoodsUserVO;
 
@@ -40,7 +41,10 @@ public interface IGoodsService extends IService<Goods> {
 
     int upWallText(int gid);
 
-    int getState( int gid);
+    int getState(int gid);
 
-    int setState( int gid,  int state);
+    int setState(int gid, int state);
+
+    Map<String, Integer> countData();
+
 }

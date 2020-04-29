@@ -8,7 +8,9 @@ import zhuffei.ffei.entity.GoodsUserVO;
 import zhuffei.ffei.mapper.GoodsMapper;
 import zhuffei.ffei.service.IGoodsService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author zhuffei
@@ -86,4 +88,19 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
     public int setState(int gid, int state) {
         return baseMapper.setState(gid, state);
     }
+
+    @Override
+    public Map<String, Integer> countData() {
+        Map map = new HashMap();
+        map.put("sell", baseMapper.countSellGoods());
+        map.put("buy", baseMapper.countBuyGoods());
+        map.put("orders", baseMapper.countOrders());
+        map.put("money", baseMapper.countOrdersTotalMoney());
+        map.put("banner", baseMapper.countBannerIncome());
+        map.put("text", baseMapper.countRollTextIncome());
+        map.put("user", baseMapper.countNewUser());
+        return map;
+    }
+
+
 }

@@ -70,4 +70,25 @@
     <update id="setState">
         update goods set state = #{state} where id = #{gid}
     </update>
+    <select id="countSellGoods" resultType="java.lang.Integer">
+        select count(*)  from goods where state = 1 and type = 1
+    </select>
+    <select id="countBuyGoods" resultType="java.lang.Integer">
+        select count(*)  from goods where state = 1 and type = 2
+    </select>
+    <select id="countOrders" resultType="java.lang.Integer">
+        SELECT count(*) from orders where TO_DAYS(create_time) = TO_DAYS(NOW())
+    </select>
+    <select id="countOrdersTotalMoney" resultType="java.lang.Integer">
+         SELECT ifnull(sum(price),0) from orders,goods where TO_DAYS(orders.create_time) = TO_DAYS(NOW()) and orders.gid = goods.id
+    </select>
+    <select id="countBannerIncome" resultType="java.lang.Integer">
+        SELECT  count(*)*10 from banner WHERE TO_DAYS(start_time) = TO_DAYS(NOW())
+     </select>
+    <select id="countRollTextIncome" resultType="java.lang.Integer">
+        SELECT  count(*)*10 from roll_text WHERE TO_DAYS(start_time) = TO_DAYS(NOW())
+    </select>
+    <select id="countNewUser" resultType="java.lang.Integer">
+        SELECT  count(*) from user WHERE TO_DAYS(create_time) = TO_DAYS(NOW())
+    </select>
 </mapper>

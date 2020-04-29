@@ -6,6 +6,7 @@ import zhuffei.ffei.entity.CommentUserVO;
 import zhuffei.ffei.entity.Goods;
 
 import java.util.List;
+import java.util.Map;
 
 import zhuffei.ffei.entity.GoodsUserVO;
 
@@ -44,4 +45,18 @@ public interface GoodsMapper extends BaseMapper<Goods> {
     int getState(@Param("gid") int gid);
 
     int setState(@Param("gid") int gid, @Param("state") int state);
+
+    Integer countSellGoods();
+
+    Integer countBuyGoods();
+
+    Integer countOrders();
+
+    Integer countOrdersTotalMoney();
+
+    Integer countRollTextIncome();
+
+    Integer countBannerIncome();
+
+    Integer countNewUser();
 }
