@@ -75,6 +75,7 @@ public class UserController {
             User user = userService.getOne(queryWrapper);
             if (null != user && user.getPwd().equals(param.getPwd())) {
                 System.out.println("用户【" + user.getName() + "】登陆成功");
+                relationService.login(user.getId());
                 return Return.ok("登陆成功", user);
             } else {
                 return Return.error("用户名或密码错误");
@@ -149,7 +150,7 @@ public class UserController {
         DiskFileItemFactory factory = new DiskFileItemFactory();
         //获取文件需要上传到的路径
 //        String path = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\avator";
-        String path  ="avator";
+        String path = "avator";
         File file = new File(path);
         if (!file.exists()) {
             file.mkdirs();

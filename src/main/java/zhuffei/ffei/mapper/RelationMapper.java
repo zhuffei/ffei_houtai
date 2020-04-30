@@ -3,7 +3,9 @@ package zhuffei.ffei.mapper;
 import org.apache.ibatis.annotations.Param;
 import zhuffei.ffei.entity.Goods;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import zhuffei.ffei.entity.User;
 
@@ -53,5 +55,9 @@ public interface RelationMapper {
     Integer changeGoodsState(@Param("gid") int gid, @Param("state") int state);
 
     Integer handleReport(@Param("gid") int gid);
+
+    Integer login(@Param("uid") int uid);
+
+    List<Map> getLoginData(@Param("startDate") String startDate, @Param("endDate") String endDate);
 
 }

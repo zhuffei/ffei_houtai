@@ -1,5 +1,6 @@
 package zhuffei.ffei.service;
 
+import java.util.Date;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
@@ -52,5 +53,10 @@ public interface IRelationService {
 
     Integer changeGoodsState(int gid, int state);
 
-    Integer handleReport( int gid);
+    Integer handleReport(int gid);
+
+    Integer login(int uid);
+
+    List<Map> getLoginData( String startDate,  String endDate);
+
 }

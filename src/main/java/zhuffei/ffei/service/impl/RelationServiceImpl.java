@@ -1,5 +1,6 @@
 package zhuffei.ffei.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -119,6 +120,15 @@ public class RelationServiceImpl implements IRelationService {
     @Override
     public Integer handleReport(int gid) {
         return relationMapper.handleReport(gid);
+    }
+
+    @Override
+    public Integer login(int uid) {
+        return relationMapper.login(uid);
+    }
+    @Override
+    public List<Map> getLoginData(String startDate, String endDate) {
+        return relationMapper.getLoginData(startDate, endDate);
     }
 
 }
