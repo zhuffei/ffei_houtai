@@ -52,4 +52,6 @@ public interface RelationMapper {
 
     Integer changeGoodsState(@Param("gid") int gid, @Param("state") int state);
 
+    Integer handleReport(@Param("gid") int gid);
+
 }

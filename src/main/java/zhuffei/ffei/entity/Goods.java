@@ -73,4 +73,7 @@ public class Goods {
 
     @TableField("update_time")
     private Timestamp updateTime;
+
+    @TableField(exist = false)
+    private int reportTimes;
 }

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="zhuffei.ffei.mapper.GoodsMapper">
 
-    <select id="listRecentGoods" resultType="zhuffei.ffei.entity.GoodsUserVO">
+  <select id="listRecentGoods" resultType="zhuffei.ffei.entity.GoodsUserVO">
         select goods.id,goods.uid,goods.name,goods.goods_des des,goods.price,goods.type,goods.state,
         goods.location,goods.img1,goods.img2,goods.img3,goods.img4,goods.img5,goods.img6 ,goods.ratio,
         goods.browse,goods.create_time createTime,goods.update_time updateTime,
@@ -10,14 +10,14 @@
         from goods goods left join user on goods.uid = user.id  where goods.is_deleted = 0 and goods.state = 1 order by goods.create_time desc limit ${(pageNumber-1)*pageSize},#{pageSize}
     </select>
 
-    <select id="getBanner" resultType="zhuffei.ffei.entity.GoodsUserVO">
+  <select id="getBanner" resultType="zhuffei.ffei.entity.GoodsUserVO">
         select  goods.id ,goods.name,goods.img1 from goods join banner on goods.id = banner.gid where goods.is_deleted = 0 and  goods.state =1 and banner.start_time &lt; CURRENT_TIME and banner.end_time &gt; CURRENT_TIME
     </select>
-    <select id="getRollText" resultType="zhuffei.ffei.entity.GoodsUserVO">
+  <select id="getRollText" resultType="zhuffei.ffei.entity.GoodsUserVO">
     select  goods.id ,goods.name from goods join roll_text on goods.id = roll_text.gid where goods.is_deleted = 0 and  goods.state =1 and roll_text.start_time &lt; CURRENT_TIME and roll_text.end_time &gt; CURRENT_TIME
   </select>
 
-    <select id="getGoods" resultType="zhuffei.ffei.entity.GoodsUserVO">
+  <select id="getGoods" resultType="zhuffei.ffei.entity.GoodsUserVO">
     select goods.id,goods.uid,goods.name,goods.goods_des des,goods.price,goods.type,goods.state,
         goods.location,goods.img1,goods.img2,goods.img3,goods.img4,goods.img5,goods.img6 ,
         goods.browse,goods.create_time createTime,goods.update_time updateTime,
@@ -25,70 +25,83 @@
         from goods goods left join user on goods.uid = user.id
         where goods.id = #{gid}
   </select>
-    <update id="viewGoods">
+  <update id="viewGoods">
     update goods set browse = browse + 1 where  id = #{gid}
   </update>
 
-    <select id="listCommentByGid" resultType="zhuffei.ffei.entity.CommentUserVO">
+  <select id="listCommentByGid" resultType="zhuffei.ffei.entity.CommentUserVO">
     SELECT comment.id,comment.uid,comment.comment,comment.create_time,user.avator,user.name userName,comment.gid from comment,user,goods
      where comment.gid = goods.id  and comment.uid = user.id and comment.is_delete = 0 and comment.gid = #{gid}
 
   </select>
 
-    <select id="searchGoods" resultType="zhuffei.ffei.entity.GoodsUserVO">
+  <select id="searchGoods" resultType="zhuffei.ffei.entity.GoodsUserVO">
     SELECT goods.id,goods.uid,goods.name,goods.goods_des des,goods.price,goods.type,goods.state,
         goods.location,goods.img1,goods.img2,goods.img3,goods.img4,goods.img5,goods.img6 ,goods.ratio,
         goods.browse,goods.create_time createTime,goods.update_time updateTime,
         user.avator,user.name userName FROM goods,user WHERE goods.uid = user.id and  goods.is_deleted = 0 and  goods.state =1 and  MATCH(goods.name,goods.goods_des) AGAINST(#{param} IN BOOLEAN MODE)
   </select>
-    <select id="listFocusGoods" resultType="zhuffei.ffei.entity.GoodsUserVO">
+  <select id="listFocusGoods" resultType="zhuffei.ffei.entity.GoodsUserVO">
          select goods.id,goods.uid,goods.name,goods.goods_des des,goods.price,goods.type,goods.state,
         goods.location,goods.img1,goods.img2,goods.img3,goods.img4,goods.img5,goods.img6 ,goods.ratio,
         goods.browse,goods.create_time createTime,goods.update_time updateTime,
         user.avator,user.name userName
         from goods,user,focus where goods.uid = focus.focused_id and user.id = focus.focused_id and goods.is_deleted = 0 and goods.state = 1 and focus.focuser_id = #{uid} order by goods.create_time desc limit ${(pageNumber-1)*pageSize},#{pageSize}
   </select>
-    <update id="banGoods">
+  <update id="banGoods">
         update goods set state = -1 where id = #{gid}
     </update>
 
-    <select id="checkWall" resultType="java.lang.Integer">
+  <select id="checkWall" resultType="java.lang.Integer">
         select count(*) from roll_text,banner where
  (roll_text.gid = #{gid} and roll_text.end_time>CURRENT_TIME())
  or (banner.gid = #{gid}
  and banner.end_time>CURRENT_TIME())
     </select>
-    <insert id="upWallBanner">
+  <insert id="upWallBanner">
         insert into banner(gid,end_time) values (#{gid},date_add(now(),   INTERVAL   1   day))
     </insert>
-    <insert id="upWallText">
+  <insert id="upWallText">
         insert into roll_text(gid,end_time) values (#{gid},date_add(now(),   INTERVAL   1   day))
     </insert>
-    <select id="getState" resultType="java.lang.Integer">
+  <select id="getState" resultType="java.lang.Integer">
         SELECT state from goods where id = #{gid}
     </select>
-    <update id="setState">
+  <update id="setState">
         update goods set state = #{state} where id = #{gid}
     </update>
-    <select id="countSellGoods" resultType="java.lang.Integer">
+  <select id="countSellGoods" resultType="java.lang.Integer">
         select count(*)  from goods where state = 1 and type = 1
     </select>
-    <select id="countBuyGoods" resultType="java.lang.Integer">
+  <select id="countBuyGoods" resultType="java.lang.Integer">
         select count(*)  from goods where state = 1 and type = 2
     </select>
-    <select id="countOrders" resultType="java.lang.Integer">
+  <select id="countOrders" resultType="java.lang.Integer">
         SELECT count(*) from orders where TO_DAYS(create_time) = TO_DAYS(NOW())
     </select>
-    <select id="countOrdersTotalMoney" resultType="java.lang.Integer">
+  <select id="countOrdersTotalMoney" resultType="java.lang.Integer">
          SELECT ifnull(sum(price),0) from orders,goods where TO_DAYS(orders.create_time) = TO_DAYS(NOW()) and orders.gid = goods.id
     </select>
-    <select id="countBannerIncome" resultType="java.lang.Integer">
+  <select id="countBannerIncome" resultType="java.lang.Integer">
         SELECT  count(*)*10 from banner WHERE TO_DAYS(start_time) = TO_DAYS(NOW())
      </select>
-    <select id="countRollTextIncome" resultType="java.lang.Integer">
+  <select id="countRollTextIncome" resultType="java.lang.Integer">
         SELECT  count(*)*10 from roll_text WHERE TO_DAYS(start_time) = TO_DAYS(NOW())
     </select>
-    <select id="countNewUser" resultType="java.lang.Integer">
+  <select id="countNewUser" resultType="java.lang.Integer">
         SELECT  count(*) from user WHERE TO_DAYS(create_time) = TO_DAYS(NOW())
     </select>
+  <select id="listUncheckGoods" resultType="zhuffei.ffei.entity.Goods">
+    select id,name,goods_des des,price,type,location,img1,img2,img3,img4,img5,img6 from goods where state = 0 order by create_time asc limit  ${(pageNumber-1)*pageSize},#{pageSize}
+  </select>
+  <select id="countUnckeckGoods" resultType="java.lang.Integer">
+    select count(*) from goods where state = 0
+  </select>
+  <select id="listReportedGoods" resultType="zhuffei.ffei.entity.Goods">
+    select count(report.gid) reportTimes,goods.id,goods.name,goods.goods_des des,goods.price,goods.type,goods.location,goods.img1,goods.img2,goods.img3,goods.img4,goods.img5,goods.img6
+     from goods,report where goods.id = report.gid and goods.state!=-1 and report.is_handled=0 group by report.gid limit  ${(pageNumber-1)*pageSize},#{pageSize}
+  </select>
+  <select id="countReportedGoods" resultType="java.lang.Integer">
+    select count(DISTINCT(gid))  from report ,goods where goods.id = report.gid and  is_handled = 0 and goods.state != -1
+  </select>
 </mapper>

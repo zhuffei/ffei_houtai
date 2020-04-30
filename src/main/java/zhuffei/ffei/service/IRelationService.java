@@ -51,4 +51,6 @@ public interface IRelationService {
     Integer buy(int gid, int uid);
 
     Integer changeGoodsState(int gid, int state);
+
+    Integer handleReport( int gid);
 }

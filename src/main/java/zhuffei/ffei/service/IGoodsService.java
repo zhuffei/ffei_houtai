@@ -17,34 +17,42 @@ import zhuffei.ffei.entity.GoodsUserVO;
  */
 public interface IGoodsService extends IService<Goods> {
 
-    List<GoodsUserVO> listRecentGoods(int pageSize, int pageNumber);
+  List<GoodsUserVO> listRecentGoods(int pageSize, int pageNumber);
 
-    List<GoodsUserVO> getBanner();
+  List<GoodsUserVO> getBanner();
 
-    List<GoodsUserVO> getRollText();
+  List<GoodsUserVO> getRollText();
 
-    GoodsUserVO getGoods(int gid);
+  GoodsUserVO getGoods(int gid);
 
-    int viewGoods(int gid);
+  int viewGoods(int gid);
 
-    List<CommentUserVO> listCommentByGid(Integer gid);
+  List<CommentUserVO> listCommentByGid(Integer gid);
 
-    List<GoodsUserVO> searchGoods(String param);
+  List<GoodsUserVO> searchGoods(String param);
 
-    List<GoodsUserVO> listFocusGoods(int uid, int pageNumber, int pageSize);
+  List<GoodsUserVO> listFocusGoods(int uid, int pageNumber, int pageSize);
 
-    int banGoods(int gid);
+  int banGoods(int gid);
 
-    int checkWall(int gid);
+  int checkWall(int gid);
 
-    int upWallBanner(int gid);
+  int upWallBanner(int gid);
 
-    int upWallText(int gid);
+  int upWallText(int gid);
 
-    int getState(int gid);
+  int getState(int gid);
 
-    int setState(int gid, int state);
+  int setState(int gid, int state);
 
-    Map<String, Integer> countData();
+  Map<String, Integer> countData();
+
+  List<Goods> listUncheckGoods(int pageNumber, int pageSize);
+
+  Integer countUnckeckGoods();
+
+  List<Goods> listReportedGoods(int pageNumber, int pageSize);
+
+    Integer countReportedGoods();
 
 }

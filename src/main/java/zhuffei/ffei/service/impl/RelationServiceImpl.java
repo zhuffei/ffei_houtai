@@ -116,4 +116,9 @@ public class RelationServiceImpl implements IRelationService {
         return relationMapper.changeGoodsState(gid, state);
     }
 
+    @Override
+    public Integer handleReport(int gid) {
+        return relationMapper.handleReport(gid);
+    }
+
 }

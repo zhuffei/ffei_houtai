@@ -18,45 +18,56 @@ import zhuffei.ffei.entity.GoodsUserVO;
 //@Mapper
 public interface GoodsMapper extends BaseMapper<Goods> {
 
-    List<GoodsUserVO> listRecentGoods(@Param("pageSize") int pageSize, @Param("pageNumber") int pageNumber);
+  List<GoodsUserVO> listRecentGoods(@Param("pageSize") int pageSize, @Param("pageNumber") int pageNumber);
 
-    List<GoodsUserVO> getBanner();
+  List<GoodsUserVO> getBanner();
 
-    List<GoodsUserVO> getRollText();
+  List<GoodsUserVO> getRollText();
 
-    GoodsUserVO getGoods(@Param("gid") int gid);
+  GoodsUserVO getGoods(@Param("gid") int gid);
 
-    int viewGoods(@Param("gid") int gid);
+  int viewGoods(@Param("gid") int gid);
 
-    List<CommentUserVO> listCommentByGid(@Param("gid") Integer gid);
+  List<CommentUserVO> listCommentByGid(@Param("gid") Integer gid);
 
-    List<GoodsUserVO> searchGoods(@Param("param") String param);
+  List<GoodsUserVO> searchGoods(@Param("param") String param);
 
-    List<GoodsUserVO> listFocusGoods(@Param("uid") int uid, @Param("pageNumber") int pageNumber, @Param("pageSize") int pageSize);
+  List<GoodsUserVO> listFocusGoods(@Param("uid") int uid, @Param("pageNumber") int pageNumber,
+      @Param("pageSize") int pageSize);
 
-    int banGoods(@Param("gid") int gid);
+  int banGoods(@Param("gid") int gid);
 
-    int checkWall(@Param("gid") int gid);
+  int checkWall(@Param("gid") int gid);
 
-    int upWallBanner(@Param("gid") int gid);
+  int upWallBanner(@Param("gid") int gid);
 
-    int upWallText(@Param("gid") int gid);
+  int upWallText(@Param("gid") int gid);
 
-    int getState(@Param("gid") int gid);
+  int getState(@Param("gid") int gid);
 
-    int setState(@Param("gid") int gid, @Param("state") int state);
+  int setState(@Param("gid") int gid, @Param("state") int state);
 
-    Integer countSellGoods();
+  Integer countSellGoods();
 
-    Integer countBuyGoods();
+  Integer countBuyGoods();
 
-    Integer countOrders();
+  Integer countOrders();
 
-    Integer countOrdersTotalMoney();
+  Integer countOrdersTotalMoney();
 
-    Integer countRollTextIncome();
+  Integer countRollTextIncome();
 
-    Integer countBannerIncome();
+  Integer countBannerIncome();
 
-    Integer countNewUser();
+  Integer countNewUser();
+
+  List<Goods> listUncheckGoods(@Param("pageNumber") int pageNumber, @Param("pageSize") int pageSize);
+
+  Integer countUnckeckGoods();
+
+  List<Goods> listReportedGoods(@Param("pageNumber") int pageNumber, @Param("pageSize") int pageSize);
+
+  Integer countReportedGoods();
+
+
 }
