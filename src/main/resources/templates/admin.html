@@ -458,9 +458,9 @@
                                                 <div><span>开始日期</span>
                                                     <el-date-picker
                                                             :clearable="false"
-                                                            @change=""
+                                                            @change="getReleaseData"
                                                             size="small"
-                                                            v-model="startDate.first"
+                                                            v-model="startDate.second"
                                                             type="date"
                                                             align="right"
                                                             placeholder="开始日期"
@@ -473,9 +473,9 @@
                                                     <span>结束日期</span>
                                                     <el-date-picker
                                                             :clearable="false"
-                                                            @change=""
+                                                            @change="getReleaseData"
                                                             size="small"
-                                                            v-model="endDate.first"
+                                                            v-model="endDate.second"
                                                             align="left"
                                                             type="date"
                                                             placeholder="结束日期"
@@ -523,9 +523,9 @@
         vm.countData();
         vm.drawChart1();
         vm.drawChart2();
-        vm.drawChart4();
         vm.getGride();
         vm.getLoginData();
+        vm.getReleaseData();
 
     })
     $.fn.bootstrapTableEx = function (opt) {
@@ -692,7 +692,7 @@
                 };
                 myChart.setOption(option);
             },
-            drawChart3: function (date,num) {
+            drawChart3: function (date, num) {
                 var myChart = echarts.init(document.getElementById('chart3'));
                 option = {
                     xAxis: {
@@ -710,7 +710,7 @@
 
                 myChart.setOption(option);
             },
-            drawChart4: function () {
+            drawChart4: function (date, sellNum, buyNum) {
                 var myChart = echarts.init(document.getElementById('chart4'));
 
                 option = {
@@ -721,7 +721,7 @@
                         }
                     },
                     legend: {
-                        data: ['联盟广告', '视频广告']
+                        data: ['求购', '闲置']
                     },
                     grid: {
                         left: '3%',
@@ -732,7 +732,7 @@
                     xAxis: [
                         {
                             type: 'category',
-                            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+                            data: date
                         }
                     ],
                     yAxis: [
@@ -742,16 +742,16 @@
                     ],
                     series: [
                         {
-                            name: '联盟广告',
+                            name: '求购',
                             type: 'bar',
-                            stack: '广告',
-                            data: [220, 182, 191, 234, 290, 330, 310]
+                            stack: '发布',
+                            data: buyNum
                         },
                         {
-                            name: '视频广告',
+                            name: '闲置',
                             type: 'bar',
-                            stack: '广告',
-                            data: [150, 232, 201, 154, 190, 330, 410]
+                            stack: '发布',
+                            data: sellNum
                         },
 
                     ]
@@ -1098,7 +1098,24 @@
                         vm.drawChart3(data.data.date, data.data.num);
                     }
                 });
-            }
+            },
+            getReleaseData: function () {
+                $.ajax({
+                    async: false,
+                    url: "/ffei/relation/getReleaseData",
+                    data: JSON.stringify({
+                        "startDate": vm.startDate.second.getFullYear() * 10000 + (vm.startDate.second.getMonth() + 1) * 100 + vm.startDate.second.getDate(),
+                        "endDate": vm.endDate.second.getFullYear() * 10000 + (vm.endDate.second.getMonth() + 1) * 100 + vm.endDate.second.getDate()
+                    }),
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json",
+                    success: function (data) {
+
+                        vm.drawChart4(data.data.date, data.data.sellNum, data.data.buyNum);
+                    }
+                });
+            },
         }
     })
 </script>

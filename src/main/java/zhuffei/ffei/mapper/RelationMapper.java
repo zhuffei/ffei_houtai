@@ -60,4 +60,6 @@ public interface RelationMapper {
 
     List<Map> getLoginData(@Param("startDate") String startDate, @Param("endDate") String endDate);
 
+    List<Map> getReleaseData(@Param("startDate") String startDate, @Param("endDate") String endDate);
+
 }

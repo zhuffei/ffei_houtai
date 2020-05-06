@@ -131,4 +131,9 @@ public class RelationServiceImpl implements IRelationService {
         return relationMapper.getLoginData(startDate, endDate);
     }
 
+    @Override
+    public List<Map> getReleasData(String startDate, String endDate) {
+        return relationMapper.getReleaseData(startDate,endDate);
+    }
+
 }

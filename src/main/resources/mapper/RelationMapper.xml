@@ -84,4 +84,7 @@
         select count(DISTINCT(uid))  num,cast(cast(create_time as date) as CHAR ) date from login
 where cast(create_time as date ) &lt;= #{endDate} and cast(create_time as date) &gt;= #{startDate} group by cast(create_time as DATE)
     </select>
+    <select id="getReleaseData" resultType="java.util.Map">
+        select count(type) num,cast(cast(create_time as date) as CHAR)date,type from goods where cast(create_time as date ) &lt;= #{endDate} and cast(create_time as date) &gt;= #{startDate} group by type,cast(create_time as date)
+    </select>
 </mapper>

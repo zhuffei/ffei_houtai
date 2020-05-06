@@ -298,7 +298,7 @@ public class RelationController {
         List<Integer> list1 = new ArrayList<>();
         for (String s : list) {
             if (map1.keySet().contains(s)) {
-                list1.add(((Long)map1.get(s)).intValue());
+                list1.add(((Long) map1.get(s)).intValue());
             } else {
                 list1.add(0);
             }
@@ -306,6 +306,50 @@ public class RelationController {
         Map returnMap = new HashMap();
         returnMap.put("date", list);
         returnMap.put("num", list1);
+        return Return.ok(returnMap);
+    }
+
+
+    @ResponseBody
+    @RequestMapping("getReleaseData")
+    public Map getReleaseData(@RequestBody Map map) throws ParseException {
+
+        String startDate = map.get("startDate").toString();
+        String endDate = map.get("endDate").toString();
+        startDate = startDate.substring(0, 4) + "-" + startDate.substring(4, 6) + "-" + startDate.substring(6, 8);
+        endDate = endDate.substring(0, 4) + "-" + endDate.substring(4, 6) + "-" + endDate.substring(6, 8);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        List<Map> listMap = relationService.getReleasData(startDate, endDate);
+        Map map1 = new HashMap();
+        Map map2 = new HashMap();
+        for (Map m : listMap) {
+            if ((int) m.get("type") == 1) {
+                map1.put(m.get("date"), m.get("num"));
+            } else {
+                map2.put(m.get("date"), m.get("num"));
+            }
+        }
+        Date start = sdf.parse(startDate);
+        Date end = sdf.parse(endDate);
+        List<String> list = findDates(start, end);
+        List<Integer> list1 = new ArrayList<>();
+        List<Integer> list2 = new ArrayList<>();
+        for (String s : list) {
+            if (map1.keySet().contains(s)) {
+                list1.add(((Long) map1.get(s)).intValue());
+            } else {
+                list1.add(0);
+            }
+            if (map2.keySet().contains(s)) {
+                list2.add(((Long) map2.get(s)).intValue());
+            } else {
+                list2.add(0);
+            }
+        }
+        Map returnMap = new HashMap();
+        returnMap.put("date", list);
+        returnMap.put("sellNum", list1);
+        returnMap.put("buyNum", list2);
         return Return.ok(returnMap);
     }
 

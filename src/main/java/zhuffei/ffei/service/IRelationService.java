@@ -59,4 +59,6 @@ public interface IRelationService {
 
     List<Map> getLoginData( String startDate,  String endDate);
 
+    List<Map> getReleasData( String startDate,  String endDate);
+
 }
