@@ -97,8 +97,8 @@
   <select id="countUnckeckGoods" resultType="java.lang.Integer">
     select count(*) from goods where state = 0
   </select>
-  <select id="listReportedGoods" resultType="zhuffei.ffei.entity.Goods">
-    select count(report.gid) reportTimes,goods.id,goods.name,goods.goods_des des,goods.price,goods.type,goods.location,goods.img1,goods.img2,goods.img3,goods.img4,goods.img5,goods.img6
+  <select id="listReportedGoods" resultType="java.util.HashMap">
+    select count(report.gid) reportTimes,goods.id,goods.name,goods.goods_des des,goods.price,goods.type,goods.location,goods.img1,goods.img2,goods.img3,goods.img4,goods.img5,goods.img6,report.reason
      from goods,report where goods.id = report.gid and goods.state!=-1 and report.is_handled=0 group by report.gid limit  ${(pageNumber-1)*pageSize},#{pageSize}
   </select>
   <select id="countReportedGoods" resultType="java.lang.Integer">

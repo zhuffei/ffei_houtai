@@ -65,7 +65,7 @@ public interface GoodsMapper extends BaseMapper<Goods> {
 
   Integer countUnckeckGoods();
 
-  List<Goods> listReportedGoods(@Param("pageNumber") int pageNumber, @Param("pageSize") int pageSize);
+  List<Map> listReportedGoods(@Param("pageNumber") int pageNumber, @Param("pageSize") int pageSize);
 
   Integer countReportedGoods();
 

@@ -51,7 +51,7 @@ public interface IGoodsService extends IService<Goods> {
 
   Integer countUnckeckGoods();
 
-  List<Goods> listReportedGoods(int pageNumber, int pageSize);
+  List<Map> listReportedGoods(int pageNumber, int pageSize);
 
     Integer countReportedGoods();
 

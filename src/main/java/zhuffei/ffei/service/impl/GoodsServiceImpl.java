@@ -113,7 +113,7 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
   }
 
   @Override
-  public List<Goods> listReportedGoods(int pageNumber, int pageSize) {
+  public List<Map> listReportedGoods(int pageNumber, int pageSize) {
     return baseMapper.listReportedGoods(pageNumber, pageSize);
   }
 

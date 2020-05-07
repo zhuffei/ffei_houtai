@@ -13,10 +13,11 @@ public class ResourceConfigAdapter implements WebMvcConfigurer {
  
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/static/**").
-            addResourceLocations("file:"+System.getProperty("user.dir")+"\\src\\main\\resources\\static\\");
-        registry.addResourceHandler("/tem/**").
-            addResourceLocations("file:"+System.getProperty("user.dir")+"\\src\\main\\resources\\templates\\");
+        registry.addResourceHandler("/**").addResourceLocations("/","classpath:/");
+//        registry.addResourceHandler("/static/**").
+//            addResourceLocations("file:"+System.getProperty("user.dir")+"\\src\\main\\resources\\static\\");
+//        registry.addResourceHandler("/tem/**").
+//            addResourceLocations("file:"+System.getProperty("user.dir")+"\\src\\main\\resources\\templates\\");
         //获取文件的真实路径 work_project代表项目工程名 需要更改
         String path1 = System.getProperty("user.dir")+"\\src\\main\\resources\\static\\avator\\";
         String path2 = System.getProperty("user.dir")+"\\src\\main\\resources\\static\\goodsImg\\";
